@@ -1,0 +1,68 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+#
+# Added by cgl
+#
+
+# Editor droppings
+*~
+*.swp
+.vscode
+
+# OS gunk
+.DS_Store
+._*
+
+# Images
+*.png
+*.ppm
+
+# Executable program names
+hello
+questions_3
+ascii_image
+image_file
+ppm_menu
+ppm_cli
+ppm_gui
+inquisitor
+simple_squares_ascii
+four_square
+
+# Github Workflows
+.github
+
+# Unit tests
+unit-tests

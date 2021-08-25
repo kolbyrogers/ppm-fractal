@@ -1,0 +1,135 @@
+name: dsu-cs-3005-functionality-check
+on: [push]
+jobs:
+
+##########################################################################
+
+  pull-code:
+    name: Pull source code
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+        
+##########################################################################
+
+  hello-enabled:
+    name: Hello enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      PROGRAM: hello
+      ASSIGNMENT: hello
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  hello-check:
+    name: Build and run hello, if enabled
+    runs-on: self-hosted
+    needs: [hello-enabled]
+    continue-on-error: false
+    if: ${{ needs.hello-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: hello
+      ASSIGNMENT: hello
+    steps:
+      - run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+        
+##########################################################################
+
+  questions-3-enabled:
+    name: Questions 3 enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      PROGRAM: questions_3
+      ASSIGNMENT: questions_3
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  questions-3-check:
+    name: Build and run questions_3, if enabled
+    runs-on: self-hosted
+    needs: [questions-3-enabled]
+    continue-on-error: false
+    if: ${{ needs.questions-3-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: questions_3
+      ASSIGNMENT: questions_3
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+        
+##########################################################################
+
+  ascii-image-enabled:
+    name: ASCII Image enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      PROGRAM: ascii_image
+      ASSIGNMENT: ascii_image
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  ascii-image-check:
+    name: Build and run ascii_image, if enabled
+    runs-on: self-hosted
+    needs: [ascii-image-enabled]
+    continue-on-error: false
+    if: ${{ needs.ascii-image-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ascii_image
+      ASSIGNMENT: ascii_image
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+
+##########################################################################        
+        
+  image-file-enabled:
+    name: Image File enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      PROGRAM: image_file
+      ASSIGNMENT: image_file
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  image-file-check:
+    name: Build and run image_file, if enabled
+    runs-on: self-hosted
+    needs: [image-file-enabled]
+    continue-on-error: false
+    if: ${{ needs.image-file-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: image_file
+      ASSIGNMENT: image_file
+    steps:
+      - run: echo ${{ needs.image-file-enabled.result }}
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+        
+##########################################################################        
