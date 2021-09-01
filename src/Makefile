@@ -1,4 +1,5 @@
 all: hello questions_3
+
 # Hello
 hello: hello.o
 	g++ -o hello hello.o
@@ -18,3 +19,7 @@ user_io.o: user_io.cpp image_menu.h
 
 controllers.o: controllers.cpp image_menu.h
 	g++ -c controllers.cpp
+
+clean:
+	-rm -f *.o
+	-rm -f hello questions_3 
