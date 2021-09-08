@@ -59,7 +59,7 @@ jobs:
         run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
         
   questions-3-check:
-    name: Build and run questions_3, if enabled
+    name: Build and test, if enabled
     runs-on: self-hosted
     needs: [questions-3-enabled]
     continue-on-error: false
@@ -67,8 +67,10 @@ jobs:
     env:
       PROGRAM: questions_3
       ASSIGNMENT: questions_3
+      ASSIGNMENT_NUMBER: 1
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
       - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
         
 ##########################################################################
@@ -97,8 +99,10 @@ jobs:
     env:
       PROGRAM: ascii_image
       ASSIGNMENT: ascii_image
+      ASSIGNMENT_NUMBER: 2
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
       - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
 
 ##########################################################################        
@@ -127,9 +131,11 @@ jobs:
     env:
       PROGRAM: image_file
       ASSIGNMENT: image_file
+      ASSIGNMENT_NUMBER: 3
     steps:
       - run: echo ${{ needs.image-file-enabled.result }}
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
       - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
         
 ##########################################################################        
