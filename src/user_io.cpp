@@ -28,9 +28,9 @@ int askQuestions3(std::istream& is, std::ostream& os) {
     double number;
     int i;
 
-    color = getString(std::cin, std::cout, "What is your favorite color? ");
-    integer = getInteger(std::cin, std::cout, "What is your favorite integer? ");
-    number = getDouble(std::cin, std::cout, "What is your favorite number? "); 
+    color = getString(is, os, "What is your favorite color? ");
+    integer = getInteger(is, os, "What is your favorite integer? ");
+    number = getDouble(is, os, "What is your favorite number? "); 
     // for i in range(integer):
     //     print(i + 1, color, number)
     for (i = 0; i < integer; i++) {

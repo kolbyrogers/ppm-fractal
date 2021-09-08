@@ -5,8 +5,8 @@
 void diagonalQuadPattern( std::istream& is, std::ostream& os, Image& image ) {
     int height, width;
 
-    height = getInteger(std::cin, std::cout, "Image height? ");
-    width = getInteger(std::cin, std::cout, "Image width? ");
+    height = getInteger(is, os, "Image height? ");
+    width = getInteger(is, os, "Image width? ");
     image.setHeight(height);
     image.setWidth(width);
 

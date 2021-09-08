@@ -3,13 +3,13 @@
 #include "Image.h"
 
 Image::Image() {
-    int height = 0;
-    int width = 0;
+    height = 0;
+    width = 0;
     std::vector<int> imageVector(height * width * 3);
 }
 Image::Image(const int& heightIn, const int& widthIn) {
-    int height = heightIn;
-    int width = widthIn;
+    setHeight(heightIn);
+    setWidth(widthIn);
     std::vector<int> imageVector(height * width * 3);
 }
 int Image::getHeight() const {
@@ -21,11 +21,11 @@ int Image::getWidth() const {
 bool Image::indexValid( const int& row, const int& column, const int& channel ) const {
     // Checks if row column and channel are within the legal limits. 
     // Returns true if they all are, false otherwise.
-    if (row > getHeight() || column > getWidth() || channel > 2) {
+    if (row > getHeight() || row < 0 || column > getWidth() || column < 0 || channel > 2 || channel < 0) {
         return false;
     }
     return true;
-};
+}
 int Image::index( const int& row, const int& column, const int& channel ) const {
     return (row * width * 3) + (column * 3) + channel;
 }
