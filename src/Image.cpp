@@ -21,7 +21,7 @@ int Image::getWidth() const {
 bool Image::indexValid( const int& row, const int& column, const int& channel ) const {
     // Checks if row column and channel are within the legal limits. 
     // Returns true if they all are, false otherwise.
-    if (row > getHeight() || row < 0 || column > getWidth() || column < 0 || channel > 2 || channel < 0) {
+    if (row >= getHeight() || row < 0 || column >= getWidth() || column < 0 || channel > 2 || channel < 0) {
         return false;
     }
     return true;
