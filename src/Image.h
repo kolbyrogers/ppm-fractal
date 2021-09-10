@@ -14,11 +14,12 @@ public:
     void setHeight(const int& height);
     void setWidth(const int& width);
     void setChannel(const int& row, const int& column, const int& channel, const int& value);
-    std::vector<int> imageVector;
+    
 
 private:
     int height;
     int width;
+    std::vector<int> imageVector;
 };
 
 #endif
