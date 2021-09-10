@@ -30,7 +30,7 @@ void diagonalQuadPattern( std::istream& is, std::ostream& os, Image& image ) {
 }
 
 void stripedDiagonalPattern( std::istream& is, std::ostream& os, PPM& p ) {
-    int height, width, maxCV, greenValue;
+    int height, width, maxCV;
 
     height = getInteger(is, os, "Image height? ");
     width = getInteger(is, os, "Image width? ");
