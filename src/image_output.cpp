@@ -1,6 +1,7 @@
 #include <iostream>
+#include <fstream>
+#include <ios>
 #include "image_menu.h"
-#include "Image.h"
 
 void drawAsciiImage( std::istream& is, std::ostream& os, const Image& image ) {
     (void)is;
@@ -40,4 +41,16 @@ void drawAsciiImage( std::istream& is, std::ostream& os, const Image& image ) {
         }
         os << std::endl;
     }
+}
+
+void writeUserImage( std::istream& is, std::ostream& os, const PPM& p ) {
+    std::string filename;
+
+    filename = getString(is, os, "Output filename? ");
+    // opens the output file in binary mode
+    // writes the PPM object to the file’s stream (using writeStream)
+    // closes the file stream.
+    std::ofstream file(filename, std::ios::binary);
+    p.writeStream(file);
+    file.close();
 }

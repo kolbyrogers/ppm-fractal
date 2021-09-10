@@ -21,4 +21,4 @@ private:
     int width;
 };
 
-#endif /*_IMAGE_H_*/
+#endif

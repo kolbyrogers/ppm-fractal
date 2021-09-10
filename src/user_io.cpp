@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "image_menu.h"
 
 std::string getString(std::istream& is, std::ostream& os, const std::string& prompt) {
