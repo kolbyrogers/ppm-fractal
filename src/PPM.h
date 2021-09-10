@@ -1,6 +1,7 @@
 #ifndef _PPM_H_
 #define _PPM_H_
 #include "Image.h"
+#include <iostream>
 
 class PPM: public Image {
 public:
