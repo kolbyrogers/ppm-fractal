@@ -21,7 +21,7 @@ void PPM::setMaxColorValue( const int& max_color_value ){
 }
 void PPM::setChannel(const int& row, const int& column, const int& channel, const int& value) {
     if (valueValid(value)) {
-        setChannel(row, column, channel, value);
+        Image::setChannel(row, column, channel, value);
     }
 }
 void PPM::setPixel(const int& row, const int& column, const int& red, const int& green, const int& blue) {
