@@ -31,39 +31,38 @@ void diagonalQuadPattern( std::istream& is, std::ostream& os, Image& image ) {
 
 void stripedDiagonalPattern( std::istream& is, std::ostream& os, PPM& p ) {
     int height, width, maxCV;
+
     height = getInteger(is, os, "Image height? ");
     width = getInteger(is, os, "Image width? ");
-    
     p.setHeight(height);
     p.setWidth(width);
+
     maxCV = (height + width) / 3;
     if (maxCV > 255) {
         maxCV = 255;
     }
     p.setMaxColorValue(maxCV);
-    os << "Test" << std::endl;
+
     for (int row = 0; row < p.getHeight(); row++) {
         for (int column = 0; column < p.getWidth(); column++) {
-            for (int channel = 0; channel < 3; channel++) {
-                /*If a pixel is in the top half of the image, sets the red channel of the pixel to 0. If a pixel is in the bottom half of the image and the row number is a multiple of 3, sets the red channel of the pixel to 0. If a pixel is in the bottom half of the image, and the row number is not a multiple of 3, sets the red channel to the maximum color value.
-                Sets the green channel of a pixel to the remainder of (row + width - column - 1) divided by one more than the maximum color value. Read that sentence carefully to get the math correct.
-                Sets the blue channel of a pixel to 0 if the column number is less than the row. Otherwise, sets the blue channel to the maximum color value. */
-                if (channel == 0){
-                    if (row < (p.getHeight() / 2)) {
-                        p.setChannel(row, column, channel, 0);
-                    } else if (row >= (p.getHeight() / 2) && (row % 3 == 0)) {
-                        p.setChannel(row, column, channel, 0);
-                    } else if (row >= (p.getHeight() / 2) && (row % 3 != 0)) {
-                        p.setChannel(row, column, channel, p.getMaxColorValue());
-                    }
-                } else if (channel == 1) {
-                    p.setChannel(row, column, channel, (row + width - column - 1) % (p.getMaxColorValue() + 1));
-                } else if (channel == 2) {
-                    if (column < row) {
-                        p.setChannel(row, column, channel, 0);
-                    } else (p.setChannel(row, column, channel, p.getMaxColorValue()));
-                }
+            // If a pixel is in the top half of the image, sets the red channel of the pixel to 0.
+            // If a pixel is in the bottom half of the image and the row number is a multiple of 3, sets the red channel of the pixel to 0.
+            // If a pixel is in the bottom half of the image, and the row number is not a multiple of 3, sets the red channel to the maximum color value.
+            if (row < height / 2) {
+                p.setChannel(row, column, 0, 0);
+            } else if (row >= height / 2 && (row % 3) == 0) {
+                p.setChannel(row, column, 0, 0);
+            } else if (row >= height / 2 && (row % 3) != 0) {
+                p.setChannel(row, column, 0, p.getMaxColorValue());
             }
+            // Sets the green channel of a pixel to the remainder of (row + width - column - 1) divided by one more than the maximum color value.
+            p.setChannel(row, column, 1, (row + p.getWidth() - column - 1) % (p.getMaxColorValue() + 1));
+            // Sets the blue channel of a pixel to 0 if the column number is less than the row. Otherwise, sets the blue channel to the maximum color value.
+            if (column < row) {
+                p.setChannel(row, column, 2, 0);
+            } else {
+                p.setChannel(row, column, 2, p.getMaxColorValue());
+            }   
         }
-    } os << "test2" << std::endl;
+    }
 }
