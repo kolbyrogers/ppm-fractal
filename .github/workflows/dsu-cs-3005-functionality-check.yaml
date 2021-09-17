@@ -59,7 +59,7 @@ jobs:
         run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
         
   questions-3-check:
-    name: Build and test, if enabled
+    name: Build and test questions_3, if enabled
     runs-on: self-hosted
     needs: [questions-3-enabled]
     continue-on-error: false
@@ -133,7 +133,102 @@ jobs:
       ASSIGNMENT: image_file
       ASSIGNMENT_NUMBER: 3
     steps:
-      - run: echo ${{ needs.image-file-enabled.result }}
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
+      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+        
+##########################################################################        
+        
+  inquisitor-enabled:
+    name: Inquisitor enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      PROGRAM: inquisitor
+      ASSIGNMENT: inquisitor
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  inquisitor-check:
+    name: Build and run inquisitor, if enabled
+    runs-on: self-hosted
+    needs: [inquisitor-enabled]
+    continue-on-error: false
+    if: ${{ needs.inquisitor-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: inquisitor
+      ASSIGNMENT: inquisitor
+      ASSIGNMENT_NUMBER: 2102
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
+      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+        
+##########################################################################        
+        
+  simple-squares-ascii-enabled:
+    name: Simple Squares ASCII enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      PROGRAM: simple_squares_ascii
+      ASSIGNMENT: simple_squares_ascii
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  simple-squares-ascii-check:
+    name: Build and run simple squares ascii, if enabled
+    runs-on: self-hosted
+    needs: [simple-squares-ascii-enabled]
+    continue-on-error: false
+    if: ${{ needs.simple-squares-ascii-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: simple_squares_ascii
+      ASSIGNMENT: simple_squares_ascii
+      ASSIGNMENT_NUMBER: 2115
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
+      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+        
+##########################################################################        
+        
+  four-square-enabled:
+    name: Four square enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      PROGRAM: four_square
+      ASSIGNMENT: four_square
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  four-square-check:
+    name: Build and run four square, if enabled
+    runs-on: self-hosted
+    needs: [four-square-enabled]
+    continue-on-error: false
+    if: ${{ needs.four-square-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: four_square
+      ASSIGNMENT: four_square
+      ASSIGNMENT_NUMBER: 2105
+    steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
       - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
