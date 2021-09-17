@@ -1,4 +1,4 @@
-all: hello questions_3 ascii_image image_file inquisitor
+all: hello questions_3 ascii_image image_file inquisitor simple_squares_ascii
 
 # ---Hello---
 hello: hello.o
@@ -52,6 +52,13 @@ inquisitor: inquisitors.o user_io.o controllers.o Image.o image_drawing.o image_
 
 inquisitors.o: inquisitors.cpp image_menu.h
 	g++ -c inquisitors.cpp
+
+# --Squares--
+simple_squares_ascii: simple_squares_ascii.o user_io.o controllers.o Image.o image_drawing.o image_output.o PPM.o
+	g++ -o simple_squares_ascii simple_squares_ascii.o user_io.o controllers.o Image.o image_drawing.o image_output.o PPM.o
+
+simple_squares_ascii.o: simple_squares_ascii.cpp image_menu.h
+	g++ -c simple_squares_ascii.cpp
 # ---Clean---
 clean:
 	-rm -f *.o

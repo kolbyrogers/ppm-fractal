@@ -1,27 +1,31 @@
 #include <iostream>
 #include "image_menu.h"
 
-std::string getString(std::istream& is, std::ostream& os, const std::string& prompt) {
+std::string getString(std::istream &is, std::ostream &os, const std::string &prompt)
+{
     std::string response;
     os << prompt;
     is >> response;
     return response;
 }
 
-int getInteger(std::istream& is, std::ostream& os, const std::string& prompt) {
+int getInteger(std::istream &is, std::ostream &os, const std::string &prompt)
+{
     int response;
     os << prompt;
     is >> response;
     return response;
 }
 
-double getDouble(std::istream& is, std::ostream& os, const std::string& prompt) {
+double getDouble(std::istream &is, std::ostream &os, const std::string &prompt)
+{
     double response;
     os << prompt;
     is >> response;
     return response;
 }
-int askQuestions3(std::istream& is, std::ostream& os) {
+int askQuestions3(std::istream &is, std::ostream &os)
+{
     std::string color;
     int integer;
     double number;
@@ -29,25 +33,27 @@ int askQuestions3(std::istream& is, std::ostream& os) {
 
     color = getString(is, os, "What is your favorite color? ");
     integer = getInteger(is, os, "What is your favorite integer? ");
-    number = getDouble(is, os, "What is your favorite number? "); 
+    number = getDouble(is, os, "What is your favorite number? ");
     // for i in range(integer):
     //     print(i + 1, color, number)
-    for (i = 0; i < integer; i++) {
+    for (i = 0; i < integer; i++)
+    {
         os << (i + 1) << " " << color << " " << number << std::endl;
     }
     return integer;
 }
 
-int askInquisitorQuestions( std::istream& is, std::ostream& os ) {
+int askInquisitorQuestions(std::istream &is, std::ostream &os)
+{
     std::string pokemon;
     int level;
     double health;
     pokemon = getString(is, os, "What is your most powerful Pokemon? ");
     level = getInteger(is, os, "What is its level? ");
-    health = getDouble(is, os, "What is its health? "); 
-    os << pokemon << "is level" << level << "and" << health << "HP." << std::endl;
+    health = getDouble(is, os, "What is its health? ");
+    os << pokemon << " is level " << level << " and " << health << " HP." << std::endl;
     return level;
-    // Asks the user for a string with “What is your most powerful Pokemon? “. Then asks for an integer with “What is its level? “. 
-    // Next asks the user for a double with “What is its health? “. Sends a message to the output formatted as shown above. 
+    // Asks the user for a string with “What is your most powerful Pokemon? “. Then asks for an integer with “What is its level? “.
+    // Next asks the user for a double with “What is its health? “. Sends a message to the output formatted as shown above.
     // Returns the pokemon’s level.
 }

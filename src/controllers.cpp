@@ -28,3 +28,12 @@ int assignment3( std::istream& is, std::ostream& os ){
 int inquisitor(std::istream& is, std::ostream& os) {
     return askInquisitorQuestions(is, os);
 }
+
+int simple_squares_ascii(std::istream& is, std::ostream& os) {
+    Image image;
+    simpleSquaresPattern(is, os, image);
+    drawAsciiImage(is, os, image);
+    return 0;
+}
+// Creates a default constructed image object. Calls simpleSquaresPattern() to configure the Image object. 
+// Calls drawAsciiImage to display the Image object to the user. Returns 0.
