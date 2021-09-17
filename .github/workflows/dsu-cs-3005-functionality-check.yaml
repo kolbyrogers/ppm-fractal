@@ -135,7 +135,7 @@ jobs:
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
-      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
         
 ##########################################################################        
         
