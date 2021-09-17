@@ -24,3 +24,7 @@ int assignment3( std::istream& is, std::ostream& os ){
 
     return 0;
 } 
+
+int inquisitor(std::istream& is, std::ostream& os) {
+    return askInquisitorQuestions(is, os);
+}

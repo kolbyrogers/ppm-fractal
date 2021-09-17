@@ -17,3 +17,6 @@ int assignment2( std::istream& is, std::ostream& os );
 void writeUserImage( std::istream& is, std::ostream& os, const PPM& p );
 void stripedDiagonalPattern( std::istream& is, std::ostream& os, PPM& p );
 int assignment3( std::istream& is, std::ostream& os );
+
+int askInquisitorQuestions(std::istream& is, std::ostream& os);
+int inquisitor( std::istream& is, std::ostream& os );

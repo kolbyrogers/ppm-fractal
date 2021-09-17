@@ -1,4 +1,4 @@
-all: hello questions_3 ascii_image image_file
+all: hello questions_3 ascii_image image_file inquisitor
 
 # ---Hello---
 hello: hello.o
@@ -46,7 +46,14 @@ image_file.o: image_file.cpp image_menu.h Image.h PPM.h
 PPM.o: PPM.cpp image_menu.h PPM.h
 	g++ -c PPM.cpp
 
+# --Inquisitor--
+inquisitor: inquisitors.o user_io.o controllers.o Image.o image_drawing.o image_output.o PPM.o 
+	g++ -o inquisitor inquisitors.o user_io.o controllers.o Image.o image_drawing.o image_output.o PPM.o
+
+inquisitors.o: inquisitors.cpp image_menu.h
+	g++ -c inquisitors.cpp
 # ---Clean---
 clean:
 	-rm -f *.o
+	-rm -f *.ppm
 	-rm -f hello questions_3 ascii_image image_file

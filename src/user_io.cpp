@@ -37,3 +37,17 @@ int askQuestions3(std::istream& is, std::ostream& os) {
     }
     return integer;
 }
+
+int askInquisitorQuestions( std::istream& is, std::ostream& os ) {
+    std::string pokemon;
+    int level;
+    double health;
+    pokemon = getString(is, os, "What is your most powerful Pokemon? ");
+    level = getInteger(is, os, "What is its level? ");
+    health = getDouble(is, os, "What is its health? "); 
+    os << pokemon << "is level" << level << "and" << health << "HP." << std::endl;
+    return level;
+    // Asks the user for a string with “What is your most powerful Pokemon? “. Then asks for an integer with “What is its level? “. 
+    // Next asks the user for a double with “What is its health? “. Sends a message to the output formatted as shown above. 
+    // Returns the pokemon’s level.
+}
