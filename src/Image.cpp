@@ -1,4 +1,3 @@
-#include <iostream>
 #include "image_menu.h"
 
 Image::Image() 

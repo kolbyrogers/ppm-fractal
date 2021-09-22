@@ -120,8 +120,4 @@ void simpleSquaresPattern(std::istream &is, std::ostream &os, Image &image)
             image.setChannel(row, column, 2, 255);
         }
     }
-    // Asks the user for an integer with “Image size? “. Configures the Image’s height and width using this size.
-    // Sets the red channels in the top half of the image to 127. The bottom half of the image will have red set to 255.
-    // The left half of the image will have green channels set to 0. The right half will have green channels set to 255.
-    // All blue channels will be set to 255.
 }

@@ -1,4 +1,4 @@
-all: hello questions_3 ascii_image image_file inquisitor simple_squares_ascii
+all: hello questions_3 ascii_image image_file inquisitor simple_squares_ascii ActionData.o MenuData.o
 
 # ---Hello---
 hello: hello.o
@@ -59,8 +59,14 @@ simple_squares_ascii: simple_squares_ascii.o user_io.o controllers.o Image.o ima
 
 simple_squares_ascii.o: simple_squares_ascii.cpp image_menu.h
 	g++ -c simple_squares_ascii.cpp
+# --Action Data Menu--
+ActionData.o: ActionData.cpp ActionData.h image_menu.h
+	g++ -c ActionData.cpp
+
+MenuData.o: MenuData.cpp MenuData.h image_menu.h
+	g++ -c MenuData.cpp
 # ---Clean---
 clean:
 	-rm -f *.o
 	-rm -f *.ppm
-	-rm -f hello questions_3 ascii_image image_file
+	-rm -f hello questions_3 ascii_image image_file inquisitor simple_squares_ascii

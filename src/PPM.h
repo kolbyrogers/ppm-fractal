@@ -13,6 +13,7 @@ public:
     void setChannel(const int& row, const int& column, const int& channel, const int& value);
     void setPixel(const int& row, const int& column, const int& red, const int& green, const int& blue);
     void writeStream(std::ostream& os) const;
+    void readStream(std::istream& is);
 private:
     int mMaxCV;
 };
