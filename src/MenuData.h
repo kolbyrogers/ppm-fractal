@@ -1,4 +1,4 @@
-#ifndef _MENUDATA_H
+#ifndef _MENUDATA_H_
 #define _MENUDATA_H_
 
 #include <iostream>

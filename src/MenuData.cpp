@@ -20,5 +20,6 @@ ActionFunctionType MenuData::getFunction(const std::string &name)
 }
 const std::string &MenuData::getDescription(const std::string &name)
 {
-    return mDescriptions.count(name) == 0 ? 0 : mDescriptions[name];
+    static std::string empty = "";
+    return mDescriptions.count(name) == 0 ? empty : mDescriptions[name];
 }
