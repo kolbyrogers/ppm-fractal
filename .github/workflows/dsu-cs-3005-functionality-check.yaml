@@ -139,98 +139,125 @@ jobs:
         
 ##########################################################################        
         
-  inquisitor-enabled:
-    name: Inquisitor enabled?
+  action-data-menu-data-enabled:
+    name: ActionData/MenuData enabled?
     runs-on: self-hosted
     needs: [pull-code]
     continue-on-error: true
     outputs:
       output1: ${{ steps.step1.outcome }}
     env:
-      PROGRAM: inquisitor
-      ASSIGNMENT: inquisitor
+      ASSIGNMENT: action_data_menu_data
     steps:
       - name: Enabled?
         id: step1
         run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
         
-  inquisitor-check:
-    name: Build and run inquisitor, if enabled
+  action-data-menu-data-check:
+    name: Build and test ActionData, MenuData, PPM::readStream, if enabled
     runs-on: self-hosted
-    needs: [inquisitor-enabled]
+    needs: [action-data-menu-data-enabled]
     continue-on-error: false
-    if: ${{ needs.inquisitor-enabled.outputs.output1 == 'success' }}
+    if: ${{ needs.action-data-menu-data-enabled.outputs.output1 == 'success' }}
     env:
-      PROGRAM: inquisitor
-      ASSIGNMENT: inquisitor
-      ASSIGNMENT_NUMBER: 2102
+      ASSIGNMENT_NUMBER: 4
+    steps:
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
+        
+##########################################################################        
+
+  ppm-menu-enabled:
+    name: PPM Menu enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: ppm_menu
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  ppm-menu-check:
+    name: Build and run ppm_menu, if enabled
+    runs-on: self-hosted
+    needs: [ppm-menu-enabled]
+    continue-on-error: false
+    if: ${{ needs.ppm-menu-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: ppm_menu
+      ASSIGNMENT_NUMBER: 5
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
-      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
         
 ##########################################################################        
         
-  simple-squares-ascii-enabled:
-    name: Simple Squares ASCII enabled?
+  ppm-operators-enabled:
+    name: PPM Operators enabled?
     runs-on: self-hosted
     needs: [pull-code]
     continue-on-error: true
     outputs:
       output1: ${{ steps.step1.outcome }}
     env:
-      PROGRAM: simple_squares_ascii
-      ASSIGNMENT: simple_squares_ascii
+      PROGRAM: ppm_menu
+      ASSIGNMENT: operator
     steps:
       - name: Enabled?
         id: step1
         run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
         
-  simple-squares-ascii-check:
-    name: Build and run simple squares ascii, if enabled
+  ppm-operators-check:
+    name: Build and run ppm_menu, if enabled
     runs-on: self-hosted
-    needs: [simple-squares-ascii-enabled]
+    needs: [ppm-operators-enabled]
     continue-on-error: false
-    if: ${{ needs.simple-squares-ascii-enabled.outputs.output1 == 'success' }}
+    if: ${{ needs.ppm-operators-enabled.outputs.output1 == 'success' }}
     env:
-      PROGRAM: simple_squares_ascii
-      ASSIGNMENT: simple_squares_ascii
-      ASSIGNMENT_NUMBER: 2115
+      PROGRAM: ppm_menu
+      ASSIGNMENT: operator
+      ASSIGNMENT_NUMBER: 6
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
-      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
         
 ##########################################################################        
         
-  four-square-enabled:
-    name: Four square enabled?
+  image-filters-enabled:
+    name: Image Filters enabled?
     runs-on: self-hosted
     needs: [pull-code]
     continue-on-error: true
     outputs:
       output1: ${{ steps.step1.outcome }}
     env:
-      PROGRAM: four_square
-      ASSIGNMENT: four_square
+      PROGRAM: ppm_menu
+      ASSIGNMENT: gray-draw
     steps:
       - name: Enabled?
         id: step1
         run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
         
-  four-square-check:
-    name: Build and run four square, if enabled
+  image-filters-check:
+    name: Build and run ppm_menu, if enabled
     runs-on: self-hosted
-    needs: [four-square-enabled]
+    needs: [image-filters-enabled]
     continue-on-error: false
-    if: ${{ needs.four-square-enabled.outputs.output1 == 'success' }}
+    if: ${{ needs.image-filters-enabled.outputs.output1 == 'success' }}
     env:
-      PROGRAM: four_square
-      ASSIGNMENT: four_square
-      ASSIGNMENT_NUMBER: 2105
+      PROGRAM: ppm_menu
+      ASSIGNMENT: gray-draw
+      ASSIGNMENT_NUMBER: 7
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
-      - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
         
 ##########################################################################        
