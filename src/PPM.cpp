@@ -62,7 +62,10 @@ void PPM::readStream(std::istream &is)
     int max;
     unsigned char byte;
     is >> p6 >> width >> height >> max;
-    is.read((char *)&byte, 1);
+    setWidth(width);
+    setHeight(height);
+    setMaxColorValue(max);
+    is.read((char *)&byte, 1); // dumps the newline character
     for (int row = 0; row < height; row++)
     {
         for (int column = 0; column < width; column++)
