@@ -37,7 +37,6 @@ jobs:
       PROGRAM: hello
       ASSIGNMENT: hello
     steps:
-      - run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
         
@@ -70,8 +69,33 @@ jobs:
       ASSIGNMENT_NUMBER: 1
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
-      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
       - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+        
+  questions-3-unit-tests-enabled:
+    name: Questions 3 unit tests enabled?
+    runs-on: self-hosted
+    needs: [questions-3-enabled]
+    continue-on-error: true
+    if: ${{ needs.questions-3-enabled.outputs.output1 == 'success' }}
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      ASSIGNMENT: questions_3_unit_tests
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  questions-3-unit-tests:
+    name: Questions 3 Unit Tests
+    runs-on: self-hosted
+    needs: [questions-3-unit-tests-enabled]
+    continue-on-error: false
+    if: ${{ needs.questions-3-unit-tests-enabled.outputs.output1 == 'success' }}
+    env:
+      ASSIGNMENT_NUMBER: 1
+    steps:
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
         
 ##########################################################################
 
@@ -102,8 +126,32 @@ jobs:
       ASSIGNMENT_NUMBER: 2
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
-      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
       - run: grade_manager --cmd grade-text --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+
+  ascii-image-unit-tests-enabled:
+    name: ASCII Image unit tests enabled?
+    runs-on: self-hosted
+    needs: [ascii-image-enabled]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      ASSIGNMENT: ascii_image_unit_tests
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  ascii-image-unit-tests:
+    name: ASCII Image Unit Tests
+    runs-on: self-hosted
+    needs: [ascii-image-unit-tests-enabled]
+    continue-on-error: false
+    if: ${{ needs.ascii-image-unit-tests-enabled.outputs.output1 == 'success' }}
+    env:
+      ASSIGNMENT_NUMBER: 2
+    steps:
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
 
 ##########################################################################        
         
@@ -134,8 +182,32 @@ jobs:
       ASSIGNMENT_NUMBER: 3
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+  image-file-unit-tests-enabled:
+    name: Image File unit tests enabled?
+    runs-on: self-hosted
+    needs: [image-file-enabled]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      ASSIGNMENT: image_file_unit_tests
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+  image-file-unit-tests:
+    name: Image File Unit Tests
+    runs-on: self-hosted
+    needs: [image-file-unit-tests-enabled]
+    continue-on-error: false
+    if: ${{ needs.image-file-unit-tests-enabled.outputs.output1 == 'success' }}
+    env:
+      ASSIGNMENT_NUMBER: 3
+    steps:
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
-      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
         
 ##########################################################################        
         
@@ -194,7 +266,7 @@ jobs:
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
-      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
         
 ##########################################################################        
         
@@ -226,7 +298,7 @@ jobs:
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
-      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
         
 ##########################################################################        
         
@@ -258,6 +330,6 @@ jobs:
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose
-      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --verbose
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
         
 ##########################################################################        
