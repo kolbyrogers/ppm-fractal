@@ -117,6 +117,7 @@ void simpleSquaresPattern(ActionData &action_data)
         }
     }
 }
+
 void setSize(ActionData &action_data)
 {
     int height, width;
