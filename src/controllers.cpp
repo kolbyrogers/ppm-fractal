@@ -51,9 +51,9 @@ void showMenu(MenuData &menu_data, ActionData &action_data)
     // For each command that was added to MenuData via addAction(), displays one line of text to the output stream of the ActionData.
     // The lines are formatted like this: “command-name) command description”. See the ShowMenu() example
     std::vector<std::string> names = menu_data.getNames();
-    for (int i = 0; i < names.size(); i++)
+    for (std::vector<std::string>::iterator it = names.begin(); it != names.end(); ++it)
     {
-        action_data.getOS() << names[i] << ") " << menu_data.getDescription(names[i]) << std::endl;
+        action_data.getOS() << *it << ") " << menu_data.getDescription(*it) << std::endl;
     }
 }
 
