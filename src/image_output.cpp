@@ -5,15 +5,15 @@
 
 void drawAsciiImage(ActionData &action_data)
 {
-    int height = action_data.getInputImage1().getHeight();
-    int width = action_data.getInputImage1().getWidth();
+    int height = action_data.getOutputImage().getHeight();
+    int width = action_data.getOutputImage().getWidth();
     for (int row = 0; row < height; row++)
     {
         for (int column = 0; column < width; column++)
         {
-            int r = action_data.getInputImage1().getChannel(row, column, 0);
-            int g = action_data.getInputImage1().getChannel(row, column, 1);
-            int b = action_data.getInputImage1().getChannel(row, column, 2);
+            int r = action_data.getOutputImage().getChannel(row, column, 0);
+            int g = action_data.getOutputImage().getChannel(row, column, 1);
+            int b = action_data.getOutputImage().getChannel(row, column, 2);
             double strength = (r + g + b) / 765.0;
             if (strength >= 1.0)
             {
@@ -71,7 +71,7 @@ void writeUserImage(ActionData &action_data)
     std::string filename;
     filename = getString(action_data, "Output filename? ");
     std::ofstream file(filename, std::ios::binary); // opens the output file in binary mode
-    action_data.getInputImage1().writeStream(file); // writes the PPM object to the file’s stream (using writeStream)
+    action_data.getOutputImage().writeStream(file); // writes the PPM object to the file’s stream (using writeStream)
     file.close();                                   // closes the file stream
 }
 
@@ -86,7 +86,7 @@ void readUserImage1(ActionData &action_data)
     std::ifstream file(filename);
     if (!file.is_open())
     {
-        std::cout << filename << " could not be opened." << std::endl;
+        action_data.getOS() << "'" << filename << "' could not be opened." << std::endl;
     }
     else
     {
