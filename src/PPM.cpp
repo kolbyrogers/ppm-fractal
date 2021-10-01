@@ -127,7 +127,6 @@ PPM &PPM::operator+=(const PPM &rhs)
 }
 PPM &PPM::operator-=(const PPM &rhs)
 {
-    int mcv = getMaxColorValue();
     for (int row = 0; row < getHeight(); row++)
     {
         for (int col = 0; col < getWidth(); col++)
