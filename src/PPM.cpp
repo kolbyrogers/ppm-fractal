@@ -40,7 +40,6 @@ void PPM::setPixel(const int &row, const int &column, const int &red, const int 
 }
 void PPM::writeStream(std::ostream &os) const
 {
-    // The first line of data is ASCII text, and the rest is binary data.
     os << "P6 " << getWidth() << " " << getHeight() << " " << getMaxColorValue() << "\n";
     for (int row = 0; row < getHeight(); row++)
     {
@@ -77,4 +76,214 @@ void PPM::readStream(std::istream &is)
             }
         }
     }
+}
+
+bool PPM::operator==(const PPM &rhs) const
+{
+    return (getHeight() * getWidth()) == (rhs.getHeight() * rhs.getWidth());
+}
+
+bool PPM::operator!=(const PPM &rhs) const
+{
+    return (getHeight() * getWidth()) != (rhs.getHeight() * rhs.getWidth());
+}
+
+bool PPM::operator<(const PPM &rhs) const
+{
+    return (getHeight() * getWidth()) < (rhs.getHeight() * rhs.getWidth());
+}
+bool PPM::operator<=(const PPM &rhs) const
+{
+    return (getHeight() * getWidth()) <= (rhs.getHeight() * rhs.getWidth());
+}
+bool PPM::operator>(const PPM &rhs) const
+{
+
+    return (getHeight() * getWidth()) > (rhs.getHeight() * rhs.getWidth());
+}
+bool PPM::operator>=(const PPM &rhs) const
+{
+    return (getHeight() * getWidth()) >= (rhs.getHeight() * rhs.getWidth());
+}
+PPM &PPM::operator+=(const PPM &rhs)
+{
+    int mcv = getMaxColorValue();
+    for (int row = 0; row < getHeight(); row++)
+    {
+        for (int col = 0; col < getWidth(); col++)
+        {
+            int red = (getChannel(row, col, 0) + rhs.getChannel(row, col, 0));
+            red = red > mcv ? mcv : red;
+            int green = (getChannel(row, col, 1) + rhs.getChannel(row, col, 1));
+            green = green > mcv ? mcv : green;
+            int blue = (getChannel(row, col, 2) + rhs.getChannel(row, col, 2));
+            blue = blue > mcv ? mcv : blue;
+            setChannel(row, col, 0, red);
+            setChannel(row, col, 1, green);
+            setChannel(row, col, 2, blue);
+        }
+    }
+    return *this;
+}
+PPM &PPM::operator-=(const PPM &rhs)
+{
+    int mcv = getMaxColorValue();
+    for (int row = 0; row < getHeight(); row++)
+    {
+        for (int col = 0; col < getWidth(); col++)
+        {
+            int red = (getChannel(row, col, 0) - rhs.getChannel(row, col, 0));
+            red = red < 0 ? 0 : red;
+            int green = (getChannel(row, col, 1) - rhs.getChannel(row, col, 1));
+            green = green < 0 ? 0 : green;
+            int blue = (getChannel(row, col, 2) - rhs.getChannel(row, col, 2));
+            blue = blue < 0 ? 0 : blue;
+            setChannel(row, col, 0, red);
+            setChannel(row, col, 1, green);
+            setChannel(row, col, 2, blue);
+        }
+    }
+    return *this;
+}
+PPM &PPM::operator*=(const double &rhs)
+{
+    int mcv = getMaxColorValue();
+    for (int row = 0; row < getHeight(); row++)
+    {
+        for (int col = 0; col < getWidth(); col++)
+        {
+            int red = (getChannel(row, col, 0) * rhs);
+            red = red > mcv ? mcv : red;
+            red = red < 0 ? 0 : red;
+            int green = (getChannel(row, col, 1) * rhs);
+            green = green > mcv ? mcv : green;
+            green = green < 0 ? 0 : green;
+            int blue = (getChannel(row, col, 2) * rhs);
+            blue = blue > mcv ? mcv : blue;
+            blue = blue < 0 ? 0 : blue;
+            setChannel(row, col, 0, red);
+            setChannel(row, col, 1, green);
+            setChannel(row, col, 2, blue);
+        }
+    }
+    return *this;
+}
+PPM &PPM::operator/=(const double &rhs)
+{
+    int mcv = getMaxColorValue();
+    for (int row = 0; row < getHeight(); row++)
+    {
+        for (int col = 0; col < getWidth(); col++)
+        {
+            int red = (getChannel(row, col, 0) / rhs);
+            red = red > mcv ? mcv : red;
+            red = red < 0 ? 0 : red;
+            int green = (getChannel(row, col, 1) / rhs);
+            green = green > mcv ? mcv : green;
+            green = green < 0 ? 0 : green;
+            int blue = (getChannel(row, col, 2) / rhs);
+            blue = blue > mcv ? mcv : blue;
+            blue = blue < 0 ? 0 : blue;
+            setChannel(row, col, 0, red);
+            setChannel(row, col, 1, green);
+            setChannel(row, col, 2, blue);
+        }
+    }
+    return *this;
+}
+PPM PPM::operator+(const PPM &rhs) const
+{
+    PPM newObject(getHeight(), getWidth());
+    int mcv = getMaxColorValue();
+    newObject.setMaxColorValue(mcv);
+    for (int row = 0; row < getHeight(); row++)
+    {
+        for (int col = 0; col < getWidth(); col++)
+        {
+            int red = (getChannel(row, col, 0) + rhs.getChannel(row, col, 0));
+            red = red > mcv ? mcv : red;
+            int green = (getChannel(row, col, 1) + rhs.getChannel(row, col, 1));
+            green = green > mcv ? mcv : green;
+            int blue = (getChannel(row, col, 2) + rhs.getChannel(row, col, 2));
+            blue = blue > mcv ? mcv : blue;
+            newObject.setChannel(row, col, 0, red);
+            newObject.setChannel(row, col, 1, green);
+            newObject.setChannel(row, col, 2, blue);
+        }
+    }
+    return newObject;
+}
+PPM PPM::operator-(const PPM &rhs) const
+{
+    PPM newObject(getHeight(), getWidth());
+    int mcv = getMaxColorValue();
+    newObject.setMaxColorValue(mcv);
+    for (int row = 0; row < getHeight(); row++)
+    {
+        for (int col = 0; col < getWidth(); col++)
+        {
+            int red = (getChannel(row, col, 0) - rhs.getChannel(row, col, 0));
+            red = red < 0 ? 0 : red;
+            int green = (getChannel(row, col, 1) - rhs.getChannel(row, col, 1));
+            green = green < 0 ? 0 : green;
+            int blue = (getChannel(row, col, 2) - rhs.getChannel(row, col, 2));
+            blue = blue < 0 ? 0 : blue;
+            newObject.setChannel(row, col, 0, red);
+            newObject.setChannel(row, col, 1, green);
+            newObject.setChannel(row, col, 2, blue);
+        }
+    }
+    return newObject;
+}
+
+PPM PPM::operator*(const double &rhs) const
+{
+    PPM newObject(getHeight(), getWidth());
+    int mcv = getMaxColorValue();
+    newObject.setMaxColorValue(mcv);
+    for (int row = 0; row < getHeight(); row++)
+    {
+        for (int col = 0; col < getWidth(); col++)
+        {
+            int red = (getChannel(row, col, 0) * rhs);
+            red = red > mcv ? mcv : red;
+            red = red < 0 ? 0 : red;
+            int green = (getChannel(row, col, 1) * rhs);
+            green = green > mcv ? mcv : green;
+            green = green < 0 ? 0 : green;
+            int blue = (getChannel(row, col, 2) * rhs);
+            blue = blue > mcv ? mcv : blue;
+            blue = blue < 0 ? 0 : blue;
+            newObject.setChannel(row, col, 0, red);
+            newObject.setChannel(row, col, 1, green);
+            newObject.setChannel(row, col, 2, blue);
+        }
+    }
+    return newObject;
+}
+
+PPM PPM::operator/(const double &rhs) const
+{
+    PPM newObject(getHeight(), getWidth());
+    int mcv = getMaxColorValue();
+    newObject.setMaxColorValue(mcv);
+    for (int row = 0; row < getHeight(); row++)
+    {
+        for (int col = 0; col < getWidth(); col++)
+        {
+            int red = (getChannel(row, col, 0) / rhs);
+            red = red > mcv ? mcv : red;
+            red = red < 0 ? 0 : red;
+            int green = (getChannel(row, col, 1) / rhs);
+            green = green > mcv ? mcv : green;
+            green = green < 0 ? 0 : green;
+            int blue = (getChannel(row, col, 2) / rhs);
+            blue = blue > mcv ? mcv : blue;
+            blue = blue < 0 ? 0 : blue;
+            newObject.setChannel(row, col, 0, red);
+            newObject.setChannel(row, col, 1, green);
+            newObject.setChannel(row, col, 2, blue);
+        }
+    }
+    return newObject;
 }

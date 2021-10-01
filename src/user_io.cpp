@@ -73,8 +73,6 @@ void commentLine(ActionData &action_data)
         }
     }
     return;
-    // read from the input stream until the input stream has nothing to read,
-    // or a newline character is read. Do not do anything with the characters read.
 }
 
 void quit(ActionData &action_data)

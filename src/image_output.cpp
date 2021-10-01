@@ -70,9 +70,9 @@ void writeUserImage(ActionData &action_data)
 {
     std::string filename;
     filename = getString(action_data, "Output filename? ");
-    std::ofstream file(filename, std::ios::binary); // opens the output file in binary mode
-    action_data.getOutputImage().writeStream(file); // writes the PPM object to the file’s stream (using writeStream)
-    file.close();                                   // closes the file stream
+    std::ofstream file(filename, std::ios::binary);
+    action_data.getOutputImage().writeStream(file);
+    file.close(); 
 }
 
 void copyImage(ActionData &action_data)
@@ -91,6 +91,21 @@ void readUserImage1(ActionData &action_data)
     else
     {
         action_data.getInputImage1().readStream(file);
+        file.close();
+    }
+}
+
+void readUserImage2(ActionData &action_data)
+{
+    std::string filename = getString(action_data, "Input filename? ");
+    std::ifstream file(filename);
+    if (!file.is_open())
+    {
+        action_data.getOS() << "'" << filename << "' could not be opened." << std::endl;
+    }
+    else
+    {
+        action_data.getInputImage2().readStream(file);
         file.close();
     }
 }
