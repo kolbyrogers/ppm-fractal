@@ -219,7 +219,7 @@ jobs:
     outputs:
       output1: ${{ steps.step1.outcome }}
     env:
-      ASSIGNMENT: action_data_menu_data
+      ASSIGNMENT: action_data_menu_data_unit_tests
     steps:
       - name: Enabled?
         id: step1
