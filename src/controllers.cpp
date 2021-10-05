@@ -96,7 +96,7 @@ void configureMenu(MenuData &menu_data)
     menu_data.addAction("red-gray", grayFromRed, "Set output image by grayscale from red on input image 1.");
     menu_data.addAction("green-gray", grayFromGreen, "Set output image by grayscale from green on input image 1.");
     menu_data.addAction("blue-gray", grayFromBlue, "Set output image by grayscale from blue on input image 1.");
-    menu_data.addAction("linear-gray", grayFromLinearColorimetric, "Set output image by linear colimetric grayscale on input image 1.");
+    menu_data.addAction("linear-gray", grayFromLinearColorimetric, "Set output image by linear colorimetric grayscale on input image 1.");
     menu_data.addAction("circle", drawCircle, "Draw a circle shape in input image 1.");
     menu_data.addAction("box", drawBox, "Draw a box shape in input image 1.");
 }

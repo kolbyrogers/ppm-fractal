@@ -169,7 +169,7 @@ void drawCircle(ActionData &action_data)
     int radius = getInteger(action_data, "Radius? ");
     int red = getInteger(action_data, "Red? ");
     int green = getInteger(action_data, "Green? ");
-    int blue = getInteger(action_data, "Blue ");
+    int blue = getInteger(action_data, "Blue? ");
     for (int row = 0; row < action_data.getInputImage1().getHeight(); row++)
     {
         for (int col = 0; col < action_data.getInputImage1().getWidth(); col++)
@@ -192,10 +192,10 @@ void drawBox(ActionData &action_data)
     int rCol = getInteger(action_data, "Right Column? ");
     int red = getInteger(action_data, "Red? ");
     int green = getInteger(action_data, "Green? ");
-    int blue = getInteger(action_data, "Blue ");
-    for (int row = tRow; row < bRow; row++)
+    int blue = getInteger(action_data, "Blue? ");
+    for (int row = tRow; row <= bRow; row++)
     {
-        for (int col = lCol; col < rCol; col++)
+        for (int col = lCol; col <= rCol; col++)
         {
             action_data.getInputImage1().setPixel(row, col, red, green, blue);
         }
