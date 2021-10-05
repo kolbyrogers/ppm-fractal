@@ -34,3 +34,28 @@ void divide(ActionData &action_data)
 {
     action_data.getOutputImage() = action_data.getInputImage1() / getDouble(action_data, "Factor? ");
 }
+
+void grayFromRed(ActionData &action_data)
+{
+    PPM gray;
+    action_data.getInputImage1().grayFromRed(gray);
+    action_data.getOutputImage() = gray;
+}
+void grayFromGreen(ActionData &action_data)
+{
+    PPM gray;
+    action_data.getInputImage1().grayFromGreen(gray);
+    action_data.getOutputImage() = gray;
+}
+void grayFromBlue(ActionData &action_data)
+{
+    PPM gray;
+    action_data.getInputImage1().grayFromBlue(gray);
+    action_data.getOutputImage() = gray;
+}
+void grayFromLinearColorimetric(ActionData &action_data)
+{
+    PPM gray;
+    action_data.getInputImage1().grayFromLinearColorimetric(gray);
+    action_data.getOutputImage() = gray;
+}

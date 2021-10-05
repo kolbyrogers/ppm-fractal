@@ -18,6 +18,12 @@ public:
     void setPixel(const int &row, const int &column, const int &red, const int &green, const int &blue);
     void writeStream(std::ostream &os) const;
     void readStream(std::istream &is);
+    void grayFromChannel(PPM &dst, const int &src_channel) const;
+    void grayFromRed(PPM &dst) const;
+    void grayFromGreen(PPM &dst) const;
+    void grayFromBlue(PPM &dst) const;
+    double linearColorimetricPixelValue( const int& row, const int& column ) const;
+    void grayFromLinearColorimetric(PPM &dst) const;
 
     // Operators
     bool operator==(const PPM &rhs) const;

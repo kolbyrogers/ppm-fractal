@@ -89,10 +89,16 @@ void configureMenu(MenuData &menu_data)
     menu_data.addAction("+=", plusEquals, "Set input image 1 by adding in input image 2.");
     menu_data.addAction("-", minus, "Set output image from difference of input image 1 and input image 2.");
     menu_data.addAction("-=", minusEquals, "Set input image 1 by subtracting input image 2.");
-    menu_data.addAction("*", times, "Set output image from input image 1 multiplied by a number");
+    menu_data.addAction("*", times, "Set output image from input image 1 multiplied by a number.");
     menu_data.addAction("*=", timesEquals, "Set input image 1 by multiplying by a number.");
     menu_data.addAction("/", divide, "Set output image from input image 1 divided by a number.");
     menu_data.addAction("/=", divideEquals, "Set input image 1 by dividing by a number.");
+    menu_data.addAction("red-gray", grayFromRed, "Set output image by grayscale from red on input image 1.");
+    menu_data.addAction("green-gray", grayFromGreen, "Set output image by grayscale from green on input image 1.");
+    menu_data.addAction("blue-gray", grayFromBlue, "Set output image by grayscale from blue on input image 1.");
+    menu_data.addAction("linear-gray", grayFromLinearColorimetric, "Set output image by linear colimetric grayscale on input image 1.");
+    menu_data.addAction("circle", drawCircle, "Draw a circle shape in input image 1.");
+    menu_data.addAction("box", drawBox, "Draw a box shape in input image 1.");
 }
 
 int imageMenu(std::istream &is, std::ostream &os)
