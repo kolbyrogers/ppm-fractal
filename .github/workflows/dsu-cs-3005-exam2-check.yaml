@@ -1,0 +1,130 @@
+name: dsu-cs-3005-check-exam1
+on: [push]
+jobs:
+
+##########################################################################
+
+  pull-code:
+    name: Pull source code
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+        
+##########################################################################        
+
+  exam2-enabled:
+    name: Exam2 enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      ASSIGNMENT: exam2
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+##########################################################################        
+
+  exam2-copy-check:
+    name: Copy commands
+    runs-on: self-hosted
+    needs: [exam2-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam2-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam2/copy-commands
+      ASSIGNMENT_NUMBER: 5111
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam2-pattern-check:
+    name: Draw Test Color Pattern
+    runs-on: self-hosted
+    needs: [exam2-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam2-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam2/test-pattern
+      ASSIGNMENT_NUMBER: 5101
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam2-blender-check:
+    name: Image Blender
+    runs-on: self-hosted
+    needs: [exam2-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam2-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam2/blender
+      ASSIGNMENT_NUMBER: 5106
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam2-multiply-check:
+    name: PPM times-equals PPM
+    runs-on: self-hosted
+    needs: [exam2-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam2-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam2/times-equals
+      ASSIGNMENT_NUMBER: 5107
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam2-orange-check:
+    name: Orange Filter
+    runs-on: self-hosted
+    needs: [exam2-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam2-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam2/orange
+      ASSIGNMENT_NUMBER: 5110
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam2-square-check:
+    name: Draw Square
+    runs-on: self-hosted
+    needs: [exam2-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam2-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam2/draw-square
+      ASSIGNMENT_NUMBER: 5102
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
