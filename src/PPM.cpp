@@ -358,15 +358,15 @@ void PPM::orangeFilter(PPM& dst) const {
        for (int col = 0; col < width; col++)
         {
 			int old_red = getChannel(row, col, 0);
-			old_red = old_red > mcv ? mcv : old_red;
 			int old_green = getChannel(row, col, 1);
-			old_green = old_green > mcv ? mcv : old_green;
 			int old_blue = getChannel(row, col, 2);
-			old_blue = old_blue > mcv ? mcv : old_blue;
 
-			int new_red = 2*(2*old_red+old_green)/3;
-			int new_green = 2*(2*old_red+old_green)/6;
-			int new_blue = old_blue/2;
+            int new_red = 2 * (2 * old_red + old_green) / 3;
+            new_red = new_red > mcv ? mcv : new_red;
+            int new_green = 2 * (2 * old_red + old_green) / 6;
+            new_green = new_green > mcv ? mcv : new_green;
+			int new_blue = old_blue / 2;
+            new_blue = new_blue > mcv ? mcv : new_blue;
 			dst.setChannel(row, col, 0, new_red);
 			dst.setChannel(row, col, 1, new_green);
 			dst.setChannel(row, col, 2, new_blue);
