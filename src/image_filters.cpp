@@ -59,3 +59,8 @@ void grayFromLinearColorimetric(ActionData &action_data)
     action_data.getInputImage1().grayFromLinearColorimetric(gray);
     action_data.getOutputImage() = gray;
 }
+void orangeFilter(ActionData& action_data){
+	PPM orange;
+	action_data.getInputImage1().orangeFilter(orange);
+	action_data.getOutputImage() = orange;
+}

@@ -24,6 +24,7 @@ public:
     void grayFromBlue(PPM &dst) const;
     double linearColorimetricPixelValue( const int& row, const int& column ) const;
     void grayFromLinearColorimetric(PPM &dst) const;
+	void orangeFilter(PPM& dst) const;
 
     // Operators
     bool operator==(const PPM &rhs) const;

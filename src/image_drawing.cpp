@@ -201,3 +201,23 @@ void drawBox(ActionData &action_data)
         }
     }
 }
+void drawSquare(ActionData &action_data)
+{
+    int row = getInteger(action_data, "Row? ");
+    int col = getInteger(action_data, "Column? ");
+	int size = getInteger(action_data, "Size? ");
+    int red = getInteger(action_data, "Red? ");
+    int green = getInteger(action_data, "Green? ");
+    int blue = getInteger(action_data, "Blue? ");
+	int tRow = row - (size / 2);
+	int bRow = row + (size / 2);
+	int lCol = col - (size / 2);
+	int rCol = col + (size / 2);
+    for (int row = tRow; row <= bRow; row++)
+    {
+        for (int col = lCol; col <= rCol; col++)
+        {
+			action_data.getInputImage1().setPixel(row, col, red, green, blue);
+        }
+    }
+}
