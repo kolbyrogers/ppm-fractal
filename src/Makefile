@@ -1,6 +1,6 @@
 targets = hello questions_3 ascii_image image_file ActionData.o MenuData.o ppm_menu # inquisitor simple_squares_ascii
-objects = user_io.o controllers.o image_drawing.o image_output.o Image.o PPM.o MenuData.o ActionData.o image_filters.o
-headers = image_menu.h Image.h PPM.h MenuData.h ActionData.h
+objects = user_io.o controllers.o image_drawing.o image_output.o Image.o PPM.o MenuData.o ActionData.o image_filters.o NumberGrid.o
+headers = image_menu.h Image.h PPM.h MenuData.h ActionData.h NumberGrid.h
 
 all: $(targets)
 
@@ -80,6 +80,10 @@ ppm_menu.o: ppm_menu.cpp $(headers)
 
 image_filters.o: image_filters.cpp $(headers)
 	g++ -c image_filters.cpp
+
+# --Number Grid--
+NumberGrid.o: NumberGrid.cpp $(headers)
+	g++ -c NumberGrid.cpp
 
 # ---Clean---
 clean:
