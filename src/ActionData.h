@@ -3,11 +3,14 @@
 
 #include <iostream>
 #include "PPM.h"
+#include "NumberGrid.h"
 
 class ActionData
 {
 public:
     ActionData(std::istream &is, std::ostream &os);
+	~ActionData();
+	NumberGrid& getGrid();
     std::istream &getIS();
     std::ostream &getOS();
     PPM &getInputImage1();
@@ -15,6 +18,7 @@ public:
     PPM &getOutputImage();
     bool getDone() const;
     void setDone();
+	void setGrid(NumberGrid *grid);
     
 private:
     std::istream &mIS;
@@ -23,6 +27,7 @@ private:
     PPM mInputImage2;
     PPM mOutputImage;
     bool mDone;
+	NumberGrid *mGrid;
 };
 
 #endif

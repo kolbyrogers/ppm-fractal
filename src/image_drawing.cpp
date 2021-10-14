@@ -37,7 +37,6 @@ void diagonalQuadPattern(ActionData &action_data)
         }
     }
 }
-
 void stripedDiagonalPattern(ActionData &action_data)
 {
     int height, width, maxCV;
@@ -55,9 +54,6 @@ void stripedDiagonalPattern(ActionData &action_data)
     {
         for (int column = 0; column < action_data.getInputImage1().getWidth(); column++)
         {
-            // If a pixel is in the top half of the image, sets the red channel of the pixel to 0.
-            // If a pixel is in the bottom half of the image and the row number is a multiple of 3, sets the red channel of the pixel to 0.
-            // If a pixel is in the bottom half of the image, and the row number is not a multiple of 3, sets the red channel to the maximum color value.
             if (row < height / 2)
             {
                 action_data.getInputImage1().setChannel(row, column, 0, 0);
@@ -70,9 +66,7 @@ void stripedDiagonalPattern(ActionData &action_data)
             {
                 action_data.getInputImage1().setChannel(row, column, 0, action_data.getInputImage1().getMaxColorValue());
             }
-            // Sets the green channel of a pixel to the remainder of (row + width - column - 1) divided by one more than the maximum color value.
             action_data.getInputImage1().setChannel(row, column, 1, (row + action_data.getInputImage1().getWidth() - column - 1) % (action_data.getInputImage1().getMaxColorValue() + 1));
-            // Sets the blue channel of a pixel to 0 if the column number is less than the row. Otherwise, sets the blue channel to the maximum color value.
             if (column < row)
             {
                 action_data.getInputImage1().setChannel(row, column, 2, 0);
@@ -84,7 +78,6 @@ void stripedDiagonalPattern(ActionData &action_data)
         }
     }
 }
-
 void simpleSquaresPattern(ActionData &action_data)
 {
     int size;
@@ -95,7 +88,6 @@ void simpleSquaresPattern(ActionData &action_data)
     {
         for (int column = 0; column < action_data.getInputImage1().getWidth(); column++)
         {
-            // set red channel in top half to 127 and bottom half to 255
             if (row < action_data.getInputImage1().getHeight() / 2)
             {
                 action_data.getInputImage1().setChannel(row, column, 0, 127);
@@ -104,7 +96,6 @@ void simpleSquaresPattern(ActionData &action_data)
             {
                 action_data.getInputImage1().setChannel(row, column, 0, 255);
             }
-            // set green channel in left half to 0 and right half to 255
             if (column < action_data.getInputImage1().getWidth() / 2)
             {
                 action_data.getInputImage1().setChannel(row, column, 1, 0);
@@ -113,7 +104,6 @@ void simpleSquaresPattern(ActionData &action_data)
             {
                 action_data.getInputImage1().setChannel(row, column, 1, 255);
             }
-            // set blue channel
             action_data.getInputImage1().setChannel(row, column, 2, 255);
         }
     }
@@ -193,6 +183,7 @@ void drawBox(ActionData &action_data)
     int red = getInteger(action_data, "Red? ");
     int green = getInteger(action_data, "Green? ");
     int blue = getInteger(action_data, "Blue? ");
+
     for (int row = tRow; row <= bRow; row++)
     {
         for (int col = lCol; col <= rCol; col++)
@@ -209,6 +200,7 @@ void drawSquare(ActionData &action_data)
     int red = getInteger(action_data, "Red? ");
     int green = getInteger(action_data, "Green? ");
     int blue = getInteger(action_data, "Blue? ");
+
 	int tRow = row - (size / 2);
 	int bRow = row + (size / 2);
 	int lCol = col - (size / 2);
@@ -220,4 +212,28 @@ void drawSquare(ActionData &action_data)
 			action_data.getInputImage1().setPixel(row, col, red, green, blue);
         }
     }
+}
+
+void configureGrid(ActionData& action_data){
+	// Prompt the user for integers “Grid Height? “, “Grid Width? “, and “Grid Max Value? “. 
+	// Use them to configure the NumberGrid object in the ActionData.
+	int height = getInteger(action_data, "Grid Height? ");
+	int width = getInteger(action_data, "Grid Width? ");
+	int max = getInteger(action_data, "Grid Max Value? ");
+	
+	action_data.getGrid().setGridSize(height, width);
+	action_data.getGrid().setMaxNumber(max);
+} 
+void setGrid(ActionData& action_data){
+	// Prompt the user for integers “Grid Row? “, “Grid Column? “, and “Grid Value? “. 
+	// Use them to set a number in the NumberGrid object of ActionData.
+	int row = getInteger(action_data, "Grid Row? ");
+	int col = getInteger(action_data, "Grid Column? ");
+	int val = getInteger(action_data, "Grid Value? ");
+
+	action_data.getGrid().setNumber(row, col, val);
+} 
+void applyGrid(ActionData& action_data){
+	// Configure the output image using the number grid.
+	action_data.getGrid().setPPM(action_data.getOutputImage());
 }

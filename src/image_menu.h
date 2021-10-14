@@ -63,3 +63,8 @@ void drawBox(ActionData& action_data);
 // exam 2
 void orangeFilter(ActionData& action_data);
 void drawSquare(ActionData& action_data);
+
+// Number Grid
+void configureGrid(ActionData& action_data);
+void setGrid(ActionData& action_data);
+void applyGrid(ActionData& action_data);
