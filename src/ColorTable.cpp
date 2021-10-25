@@ -133,11 +133,13 @@ void ColorTable::insertGradient(const Color &color1, const Color &color2,
 }
 int ColorTable::getMaxChannelValue() const {
   int max = 0;
-  for (std::vector<const Color>::iterator it = mColors.begin();
-       it != mColors.end(); ++it) {
+  for (int i = 0; i < getNumberOfColors(); ++i) {
+
     for (int channel = 0; channel < 3; ++channel) {
       int tmp = max;
-      it->getChannel(channel) > max ? max = it->getChannel(channel) : max = tmp;
+      mColors[i].getChannel(channel) > max
+          ? max = mColors[i].getChannel(channel)
+          : max = tmp;
     }
   }
   return max;
