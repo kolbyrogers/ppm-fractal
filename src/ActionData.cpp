@@ -1,7 +1,7 @@
 #include "ActionData.h"
 
 ActionData::ActionData(std::istream &is, std::ostream &os)
-    : mIS(is), mOS(os), mDone(false), mGridPointer(0) {}
+    : mIS(is), mOS(os), mDone(false), mGridPointer(0), mColorTable(16) {}
 
 ActionData::~ActionData() {
   if (mGridPointer != 0) {
@@ -30,3 +30,4 @@ void ActionData::setGrid(NumberGrid *grid) {
   }
   mGridPointer = grid;
 }
+ColorTable &ActionData::getTable() { return mColorTable; }

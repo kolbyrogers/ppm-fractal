@@ -1,7 +1,7 @@
-#include <iostream>
-#include <string>
 #include "ActionData.h"
 #include "MenuData.h"
+#include <iostream>
+#include <string>
 
 std::string getString(ActionData &action_data, const std::string &prompt);
 int getInteger(ActionData &action_data, const std::string &prompt);
@@ -39,7 +39,8 @@ void clearAll(ActionData &action_data);
 void copyImage(ActionData &action_data);
 void readUserImage1(ActionData &action_data);
 void showMenu(MenuData &menu_data, ActionData &action_data);
-void takeAction(const std::string &choice, MenuData &menu_data, ActionData &action_data);
+void takeAction(const std::string &choice, MenuData &menu_data,
+                ActionData &action_data);
 void configureMenu(MenuData &menu_data);
 int imageMenu(std::istream &is, std::ostream &os);
 
@@ -57,14 +58,21 @@ void grayFromRed(ActionData &action_data);
 void grayFromGreen(ActionData &action_data);
 void grayFromBlue(ActionData &action_data);
 void grayFromLinearColorimetric(ActionData &action_data);
-void drawCircle(ActionData& action_data);
-void drawBox(ActionData& action_data);
+void drawCircle(ActionData &action_data);
+void drawBox(ActionData &action_data);
 
 // exam 2
-void orangeFilter(ActionData& action_data);
-void drawSquare(ActionData& action_data);
+void orangeFilter(ActionData &action_data);
+void drawSquare(ActionData &action_data);
 
 // Number Grid
-void configureGrid(ActionData& action_data);
-void setGrid(ActionData& action_data);
-void applyGrid(ActionData& action_data);
+void configureGrid(ActionData &action_data);
+void setGrid(ActionData &action_data);
+void applyGrid(ActionData &action_data);
+
+// Color Table
+void setColorTableSize(ActionData &action_data);
+void setColor(ActionData &action_data);
+void setRandomColor(ActionData &action_data);
+void setColorGradient(ActionData &action_data);
+void applyGridColorTable(ActionData &action_data);

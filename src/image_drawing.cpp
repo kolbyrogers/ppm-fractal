@@ -150,7 +150,6 @@ void drawBox(ActionData &action_data) {
   int red = getInteger(action_data, "Red? ");
   int green = getInteger(action_data, "Green? ");
   int blue = getInteger(action_data, "Blue? ");
-
   for (int row = tRow; row <= bRow; row++) {
     for (int col = lCol; col <= rCol; col++) {
       action_data.getInputImage1().setPixel(row, col, red, green, blue);
@@ -164,7 +163,6 @@ void drawSquare(ActionData &action_data) {
   int red = getInteger(action_data, "Red? ");
   int green = getInteger(action_data, "Green? ");
   int blue = getInteger(action_data, "Blue? ");
-
   int tRow = row - (size / 2);
   int bRow = row + (size / 2);
   int lCol = col - (size / 2);
@@ -177,25 +175,59 @@ void drawSquare(ActionData &action_data) {
 }
 
 void configureGrid(ActionData &action_data) {
-  // Prompt the user for integers “Grid Height? “, “Grid Width? “, and “Grid Max
-  // Value? “. Use them to configure the NumberGrid object in the ActionData.
   int height = getInteger(action_data, "Grid Height? ");
   int width = getInteger(action_data, "Grid Width? ");
   int max = getInteger(action_data, "Grid Max Value? ");
-
   action_data.getGrid().setGridSize(height, width);
   action_data.getGrid().setMaxNumber(max);
 }
 void setGrid(ActionData &action_data) {
-  // Prompt the user for integers “Grid Row? “, “Grid Column? “, and “Grid
-  // Value? “. Use them to set a number in the NumberGrid object of ActionData.
   int row = getInteger(action_data, "Grid Row? ");
   int col = getInteger(action_data, "Grid Column? ");
   int val = getInteger(action_data, "Grid Value? ");
-
   action_data.getGrid().setNumber(row, col, val);
 }
 void applyGrid(ActionData &action_data) {
-  // Configure the output image using the number grid.
   action_data.getGrid().setPPM(action_data.getOutputImage());
+}
+
+void setColorTableSize(ActionData &action_data) {
+  int size = getInteger(action_data, "Size? ");
+  action_data.getTable().setNumberOfColors(size);
+}
+void setColor(ActionData &action_data) {
+  int position = getInteger(action_data, "Position? ");
+  int red = getInteger(action_data, "Red? ");
+  int green = getInteger(action_data, "Green? ");
+  int blue = getInteger(action_data, "Blue? ");
+  action_data.getTable()[position].setChannel(0, red);
+  action_data.getTable()[position].setChannel(1, green);
+  action_data.getTable()[position].setChannel(2, blue);
+}
+void setRandomColor(ActionData &action_data) {
+  int position = getInteger(action_data, "Position? ");
+  action_data.getTable().setRandomColor(255, position);
+}
+void setColorGradient(ActionData &action_data) {
+  int p1 = getInteger(action_data, "First position? ");
+  int fRed = getInteger(action_data, "First red? ");
+  int fGreen = getInteger(action_data, "First green? ");
+  int fBlue = getInteger(action_data, "First blue? ");
+  int p2 = getInteger(action_data, "Second position? ");
+  int sRed = getInteger(action_data, "Second red? ");
+  int sGreen = getInteger(action_data, "Second green? ");
+  int sBlue = getInteger(action_data, "Second blue? ");
+  Color c1;
+  Color c2;
+  c1.setRed(fRed);
+  c1.setGreen(fGreen);
+  c1.setBlue(fBlue);
+  c2.setRed(sRed);
+  c2.setGreen(sGreen);
+  c2.setBlue(sBlue);
+  action_data.getTable().insertGradient(c1, c2, p1, p2);
+}
+void applyGridColorTable(ActionData &action_data) {
+  action_data.getGrid().setPPM(action_data.getOutputImage(),
+                               action_data.getTable());
 }

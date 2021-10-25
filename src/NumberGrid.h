@@ -1,6 +1,7 @@
 #ifndef _NUMBERGRID_H_
 #define _NUMBERGRID_H_
 
+#include "ColorTable.h"
 #include "PPM.h"
 #include <iostream>
 #include <vector>
@@ -22,6 +23,7 @@ public:
   int getNumber(const int &row, const int &column) const;
   void setNumber(const int &row, const int &column, const int &number);
   void setPPM(PPM &ppm) const;
+  void setPPM(PPM &ppm, const ColorTable &colors) const;
 
 private:
   int mHeight;

@@ -18,6 +18,7 @@ public:
   bool getDone() const;
   void setDone();
   void setGrid(NumberGrid *grid);
+  ColorTable &getTable();
 
 private:
   std::istream &mIS;
@@ -27,6 +28,7 @@ private:
   PPM mOutputImage;
   bool mDone;
   NumberGrid *mGridPointer;
+  ColorTable mColorTable;
 };
 
 #endif

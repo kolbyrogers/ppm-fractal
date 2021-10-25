@@ -72,3 +72,28 @@ void NumberGrid::setPPM(PPM &ppm) const {
     }
   }
 }
+void NumberGrid::setPPM(PPM &ppm, const ColorTable &colors) const {
+  int colorSize = colors.getNumberOfColors();
+  if (colorSize >= 2) {
+    ppm.setHeight(mHeight);
+    ppm.setWidth(mWidth);
+    ppm.setMaxColorValue(colors.getMaxChannelValue());
+    for (int row = 0; row < mHeight; ++row) {
+      for (int col = 0; col < mWidth; ++col) {
+        int val = getNumber(row, col);
+        if (val == getMaxNumber()) {
+          int red = colors[colorSize - 1].getRed();
+          int green = colors[colorSize - 1].getGreen();
+          int blue = colors[colorSize - 1].getBlue();
+          ppm.setPixel(row, col, red, green, blue);
+        } else {
+          int index = val % colorSize;
+          int red = colors[index].getRed();
+          int green = colors[index].getGreen();
+          int blue = colors[index].getBlue();
+          ppm.setPixel(row, col, red, green, blue);
+        }
+      }
+    }
+  }
+}
