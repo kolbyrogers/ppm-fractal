@@ -1,6 +1,7 @@
 #ifndef _COLORTABLE_H_
 #define _COLORTABLE_H_
 
+#include <iostream>
 #include <vector>
 
 class Color {
