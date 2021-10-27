@@ -1,7 +1,7 @@
 targets = hello questions_3 ascii_image image_file ActionData.o MenuData.o ppm_menu # inquisitor simple_squares_ascii
-objects = user_io.o controllers.o image_drawing.o image_output.o Image.o PPM.o MenuData.o ActionData.o image_filters.o NumberGrid.o ColorTable.o
+objects = user_io.o controllers.o image_drawing.o image_output.o Image.o PPM.o MenuData.o ActionData.o image_filters.o NumberGrid.o ColorTable.o ComplexFractal.o
 headers = image_menu.h Image.h PPM.h MenuData.h ActionData.h NumberGrid.h
-flags = -Wall -Werror -Wextra -g 
+flags = -Wall -Werror -Wextra -g -std=c++11 
 
 all: $(targets)
 
@@ -86,8 +86,13 @@ image_filters.o: image_filters.cpp $(headers)
 NumberGrid.o: NumberGrid.cpp $(headers)
 	g++ $(flags) -c NumberGrid.cpp
 
+# --Color Table--
 ColorTable.o: ColorTable.cpp $(headers)
 	g++ $(flags) -c ColorTable.cpp
+
+# --Complex Fractal--
+ComplexFractal.o: ComplexFractal.cpp $(headers)
+	g++ $(flags) -c ComplexFractal.cpp
 # ---Clean---
 clean:
 	-rm -f *.o

@@ -1,4 +1,5 @@
 #include "ActionData.h"
+#include "ComplexFractal.h"
 #include "MenuData.h"
 #include <iostream>
 #include <string>
@@ -61,7 +62,7 @@ void grayFromLinearColorimetric(ActionData &action_data);
 void drawCircle(ActionData &action_data);
 void drawBox(ActionData &action_data);
 
-// exam 2
+// Exam 2
 void orangeFilter(ActionData &action_data);
 void drawSquare(ActionData &action_data);
 
@@ -76,3 +77,7 @@ void setColor(ActionData &action_data);
 void setRandomColor(ActionData &action_data);
 void setColorGradient(ActionData &action_data);
 void applyGridColorTable(ActionData &action_data);
+
+// Complex Fractal
+void setFractalPlaneSize(ActionData &action_data);
+void calculateFractal(ActionData &action_data);

@@ -69,7 +69,6 @@ std::ostream &operator<<(std::ostream &os, const Color &color) {
 
 // --- ColorTable Class ---
 ColorTable::ColorTable(const int &num_color) : mColors(num_color) {}
-
 int ColorTable::getNumberOfColors() const { return mColors.size(); }
 
 void ColorTable::setNumberOfColors(const int &num_color) {
@@ -113,8 +112,6 @@ double ColorTable::gradientSlope(const double y1, const double y2,
 double ColorTable::gradientValue(const double y1, const double x1,
                                  const double slope, const double x) const {
   return y1 + (x - x1) * slope;
-  // Calculate the y-value along the gradient from point (x1,y1) to the point
-  // at position x.
 }
 void ColorTable::insertGradient(const Color &color1, const Color &color2,
                                 const int &position1, const int &position2) {
@@ -134,7 +131,6 @@ void ColorTable::insertGradient(const Color &color1, const Color &color2,
 int ColorTable::getMaxChannelValue() const {
   int max = 0;
   for (int i = 0; i < getNumberOfColors(); ++i) {
-
     for (int channel = 0; channel < 3; ++channel) {
       int tmp = max;
       mColors[i].getChannel(channel) > max

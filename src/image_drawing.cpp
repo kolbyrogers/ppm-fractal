@@ -1,3 +1,4 @@
+#include "ComplexFractal.h"
 #include "image_menu.h"
 #include <cmath>
 #include <iostream>
@@ -174,6 +175,7 @@ void drawSquare(ActionData &action_data) {
   }
 }
 
+// Number Grid
 void configureGrid(ActionData &action_data) {
   int height = getInteger(action_data, "Grid Height? ");
   int width = getInteger(action_data, "Grid Width? ");
@@ -191,6 +193,7 @@ void applyGrid(ActionData &action_data) {
   action_data.getGrid().setPPM(action_data.getOutputImage());
 }
 
+// Color Table
 void setColorTableSize(ActionData &action_data) {
   int size = getInteger(action_data, "Size? ");
   action_data.getTable().setNumberOfColors(size);
@@ -200,9 +203,9 @@ void setColor(ActionData &action_data) {
   int red = getInteger(action_data, "Red? ");
   int green = getInteger(action_data, "Green? ");
   int blue = getInteger(action_data, "Blue? ");
-  action_data.getTable()[position].setChannel(0, red);
-  action_data.getTable()[position].setChannel(1, green);
-  action_data.getTable()[position].setChannel(2, blue);
+  action_data.getTable()[position].setRed(red);
+  action_data.getTable()[position].setGreen(green);
+  action_data.getTable()[position].setBlue(blue);
 }
 void setRandomColor(ActionData &action_data) {
   int position = getInteger(action_data, "Position? ");
@@ -230,4 +233,25 @@ void setColorGradient(ActionData &action_data) {
 void applyGridColorTable(ActionData &action_data) {
   action_data.getGrid().setPPM(action_data.getOutputImage(),
                                action_data.getTable());
+}
+
+// ComplexFractal
+void setFractalPlaneSize(ActionData &action_data) {
+  double min_x = getDouble(action_data, "Min X? ");
+  double max_x = getDouble(action_data, "Max X? ");
+  double min_y = getDouble(action_data, "Min Y? ");
+  double max_y = getDouble(action_data, "Max Y? ");
+  ComplexFractal *f1 = dynamic_cast<ComplexFractal *>(&action_data.getGrid());
+  if (f1 != 0) {
+    f1->setPlaneSize(min_x, max_x, min_y, max_y);
+  } else {
+    std::cout << "Not a ComplexFractal object. Can't set the plane size.";
+  }
+  // Asks the user for the doubles “Min X? “, “Max X? “, “Min Y? ” and “Max Y?
+  // “, then sets the plane size. Only does this work if the grid is actually a
+  // ComplexFractal object. Otherwise, gives a message “Not a ComplexFractal
+  // object. Can’t set plane size.”.
+}
+void calculateFractal(ActionData &action_data) {
+  action_data.getGrid().calculateAllNumbers();
 }
