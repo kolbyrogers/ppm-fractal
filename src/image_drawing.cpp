@@ -1,4 +1,4 @@
-#include "ComplexFractal.h"
+#include "JuliaSet.h"
 #include "image_menu.h"
 #include <cmath>
 #include <iostream>
@@ -247,11 +247,19 @@ void setFractalPlaneSize(ActionData &action_data) {
   } else {
     std::cout << "Not a ComplexFractal object. Can't set the plane size.";
   }
-  // Asks the user for the doubles “Min X? “, “Max X? “, “Min Y? ” and “Max Y?
-  // “, then sets the plane size. Only does this work if the grid is actually a
-  // ComplexFractal object. Otherwise, gives a message “Not a ComplexFractal
-  // object. Can’t set plane size.”.
 }
 void calculateFractal(ActionData &action_data) {
   action_data.getGrid().calculateAllNumbers();
+}
+
+// Julia Set
+void setJuliaParameters(ActionData &action_data) {
+  double a = getDouble(action_data, "Parameter a? ");
+  double b = getDouble(action_data, "Parameter b? ");
+  JuliaSet *j1 = dynamic_cast<JuliaSet *>(&action_data.getGrid());
+  if (j1 != 0) {
+    j1->setParameters(a, b);
+  } else {
+    std::cout << "Not a JuliaSet object. Can't set parameters.";
+  }
 }

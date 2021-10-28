@@ -1,5 +1,5 @@
 #include "ActionData.h"
-#include "ComplexFractal.h"
+#include "JuliaSet.h"
 #include "MenuData.h"
 #include <iostream>
 #include <string>
@@ -81,3 +81,8 @@ void applyGridColorTable(ActionData &action_data);
 // Complex Fractal
 void setFractalPlaneSize(ActionData &action_data);
 void calculateFractal(ActionData &action_data);
+
+// Julia Set
+void setJuliaParameters(ActionData &action_data);
+void setComplexFractal(ActionData &action_data);
+void setJuliaFractal(ActionData &action_data);
