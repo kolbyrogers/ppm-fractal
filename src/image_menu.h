@@ -1,5 +1,6 @@
 #include "ActionData.h"
 #include "JuliaSet.h"
+#include "MandelbrotSet.h"
 #include "MenuData.h"
 #include <iostream>
 #include <string>
@@ -86,3 +87,6 @@ void calculateFractal(ActionData &action_data);
 void setJuliaParameters(ActionData &action_data);
 void setComplexFractal(ActionData &action_data);
 void setJuliaFractal(ActionData &action_data);
+
+// Mandelbrot Set
+void setMandelbrotFractal(ActionData &action_data);
