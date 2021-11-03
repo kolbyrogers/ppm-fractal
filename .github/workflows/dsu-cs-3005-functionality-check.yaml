@@ -481,7 +481,7 @@ jobs:
     env:
       PROGRAM: ppm_menu
       ASSIGNMENT: mandelbrot-set
-      ASSIGNMENT_NUMBER: 11
+      ASSIGNMENT_NUMBER: 12
     steps:
       - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
       - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
