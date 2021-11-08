@@ -114,6 +114,12 @@ ManhattanNumbers::ManhattanNumbers(const int &height, const int &width)
     : NumberGrid(height, width) {}
 ManhattanNumbers::~ManhattanNumbers() {}
 int ManhattanNumbers::calculateNumber(const int &row, const int &column) const {
-  int manhattan;
+  // The Manhattan distance is the sum of the horizontal and vertical distances
+  // between two points on a grid. The name comes from the square blocks of the
+  // Manhattan borough in New York City.
+  int center = std::abs(mHeight / 2 - mWidth / 2);
+  int location = std::abs(row - column);
+  int manhattan = center + location;
+
   return manhattan;
 }
