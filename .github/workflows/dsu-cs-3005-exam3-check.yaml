@@ -1,0 +1,114 @@
+name: dsu-cs-3005-check-exam3
+on: [push]
+jobs:
+
+##########################################################################
+
+  pull-code:
+    name: Pull source code
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+        
+##########################################################################        
+
+  exam3-enabled:
+    name: Exam3 enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      ASSIGNMENT: exam3
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+##########################################################################        
+
+  exam3-inverted-gradient-check:
+    name: Inverted Gradient
+    runs-on: self-hosted
+    needs: [exam3-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam3-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam3/inverted-gradient
+      ASSIGNMENT_NUMBER: 6103
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam3-zoom-plane-check:
+    name: Zoom Plane
+    runs-on: self-hosted
+    needs: [exam3-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam3-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam3/zoom-plane
+      ASSIGNMENT_NUMBER: 6102
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam3-manhattan-numbers-check:
+    name: Manhattan Numbers
+    runs-on: self-hosted
+    needs: [exam3-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam3-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam3/manhattan-numbers
+      ASSIGNMENT_NUMBER: 6104
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam3-julia-four-check:
+    name: Julia Four
+    runs-on: self-hosted
+    needs: [exam3-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam3-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam3/julia-four
+      ASSIGNMENT_NUMBER: 6101
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam3-mandelbrot-power-check:
+    name: Mandelbrot Power
+    runs-on: self-hosted
+    needs: [exam3-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam3-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam3/mandelbrot-power
+      ASSIGNMENT_NUMBER: 6107
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
