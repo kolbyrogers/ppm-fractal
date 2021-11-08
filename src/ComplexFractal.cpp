@@ -20,9 +20,7 @@ double ComplexFractal::getMaxY() const { return mMaxY; }
 void ComplexFractal::setGridSize(const int &height, const int &width) {
   if (height >= 2 && width >= 2) {
     NumberGrid::setGridSize(height, width);
-    double delta_x = calculateDeltaX();
-    double delta_y = calculateDeltaY();
-    setDeltas(delta_x, delta_y);
+    setDeltas(calculateDeltaX(), calculateDeltaY());
   }
 }
 void ComplexFractal::setPlaneSize(const double &min_x, const double &max_x,
@@ -42,9 +40,7 @@ void ComplexFractal::setPlaneSize(const double &min_x, const double &max_x,
       mMinY = max_y;
       mMaxY = min_y;
     }
-    double delta_x = calculateDeltaX();
-    double delta_y = calculateDeltaY();
-    setDeltas(delta_x, delta_y);
+    setDeltas(calculateDeltaX(), calculateDeltaY());
   }
 }
 

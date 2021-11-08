@@ -40,3 +40,12 @@ int JuliaSet::calculateNumber(const int &row, const int &column) const {
   calculatePlaneCoordinatesFromPixelCoordinates(row, column, x, y);
   return calculatePlaneEscapeCount(x, y);
 }
+
+JuliaSetFour::JuliaSetFour() : JuliaSet() {}
+JuliaSetFour::~JuliaSetFour() {}
+void JuliaSetFour::calculateNextPoint(const double x0, const double y0,
+                                      double &x1, double &y1) const {
+  x1 = (x0 * x0 * x0 * x0) - 6 * (x0 * x0) * (y0 * y0) + (y0 * y0 * y0 * y0) +
+       getA();
+  y1 = 4 * (x0 * x0 * x0) * y0 - 4 * x0 * (y0 * y0 * y0) + getB();
+}

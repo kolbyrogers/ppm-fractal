@@ -24,4 +24,12 @@ public:
   virtual int calculateNumber(const int &row, const int &column) const;
 };
 
+class JuliaSetFour : public JuliaSet {
+public:
+  JuliaSetFour();
+  virtual ~JuliaSetFour();
+  virtual void calculateNextPoint(const double x0, const double y0, double &x1,
+                                  double &y1) const;
+};
+
 #endif /* JULIASET_H */

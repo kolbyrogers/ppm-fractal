@@ -104,5 +104,6 @@ MandelbrotSet.o: MandelbrotSet.cpp $(headers)
 # ---Clean---
 clean:
 	-rm -f *.o
+	-rm -f *.gch
 	-rm -f *.ppm
 	-rm -f $(targets)
