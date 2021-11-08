@@ -34,4 +34,15 @@ protected:
   std::vector<int> mGrid;
 };
 
+class ManhattanNumbers : public NumberGrid {
+public:
+  ManhattanNumbers();
+  ManhattanNumbers(const int &height, const int &width);
+  virtual ~ManhattanNumbers();
+  int calculateNumber(const int &row, const int &column) const;
+
+private:
+  /* data */
+};
+
 #endif

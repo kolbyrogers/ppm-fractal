@@ -141,6 +141,8 @@ void configureMenu(MenuData &menu_data) {
   menu_data.addAction(
       "julia-four", setJuliaFourFractal,
       "Choose to make a Julia set with the fourth power function.");
+  menu_data.addAction("manhattan", setManhattanNumbers,
+                      "Choose to make a Manhattan distance grid.");
 }
 int imageMenu(std::istream &is, std::ostream &os) {
   ActionData action_data(is, os);
@@ -165,4 +167,7 @@ void setMandelbrotFractal(ActionData &action_data) {
 // Exam 3
 void setJuliaFourFractal(ActionData &action_data) {
   action_data.setGrid(new JuliaSetFour);
+}
+void setManhattanNumbers(ActionData &action_data) {
+  action_data.setGrid(new ManhattanNumbers);
 }

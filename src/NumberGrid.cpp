@@ -1,4 +1,5 @@
 #include "NumberGrid.h"
+#include <cmath>
 
 NumberGrid::NumberGrid()
     : mHeight(300), mWidth(400), mMax(255), mGrid((mHeight * mWidth), 0) {}
@@ -106,4 +107,13 @@ void NumberGrid::calculateAllNumbers() {
       setNumber(row, col, num);
     }
   }
+}
+
+ManhattanNumbers::ManhattanNumbers() : NumberGrid(600, 800) {}
+ManhattanNumbers::ManhattanNumbers(const int &height, const int &width)
+    : NumberGrid(height, width) {}
+ManhattanNumbers::~ManhattanNumbers() {}
+int ManhattanNumbers::calculateNumber(const int &row, const int &column) const {
+  int manhattan;
+  return manhattan;
 }

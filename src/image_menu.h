@@ -92,3 +92,4 @@ void setMandelbrotFractal(ActionData &action_data);
 
 // Exam3
 void setJuliaFourFractal(ActionData &action_data);
+void setManhattanNumbers(ActionData &action_data);
