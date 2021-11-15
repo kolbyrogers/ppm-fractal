@@ -7,14 +7,14 @@ all: $(targets)
 
 # ---Hello---
 hello: hello.o
-	g++ $(flags) -o hello hello.o
+	g++ $(flags) -o hello hello.o -lpthread
 
 hello.o: hello.cpp
 	g++ $(flags) -c hello.cpp
 
 # ---Questions 3---
 questions_3: questions_3.o $(objects)
-	g++ $(flags) -o questions_3 questions_3.o $(objects)
+	g++ $(flags) -o questions_3 questions_3.o $(objects) -lpthread
 
 questions_3.o: questions_3.cpp $(headers)
 	g++ $(flags) -c questions_3.cpp
@@ -27,7 +27,7 @@ controllers.o: controllers.cpp $(objects)
 
 # ---ASCII image---
 ascii_image: ascii_image.o $(objects)
-	g++ $(flags) -o ascii_image ascii_image.o $(objects)
+	g++ $(flags) -o ascii_image ascii_image.o $(objects) -lpthread
 
 ascii_image.o: ascii_image.cpp $(headers)
 	g++ $(flags) -c ascii_image.cpp
@@ -43,7 +43,7 @@ Image.o: Image.cpp $(headers)
 
 # ---Image File---
 image_file: image_file.o $(objects)
-	g++ $(flags) -o image_file image_file.o $(objects)
+	g++ $(flags) -o image_file image_file.o $(objects) -lpthread
 
 image_file.o: image_file.cpp $(headers)
 	g++ $(flags) -c image_file.cpp
@@ -74,7 +74,7 @@ MenuData.o: MenuData.cpp $(headers)
 
 # --PPM Menu--
 ppm_menu: ppm_menu.o $(objects)
-	g++ $(flags) -o ppm_menu ppm_menu.o $(objects)
+	g++ $(flags) -o ppm_menu ppm_menu.o $(objects) -lpthread
 
 ppm_menu.o: ppm_menu.cpp $(headers)
 	g++ $(flags) -c ppm_menu.cpp
