@@ -263,3 +263,8 @@ void setJuliaParameters(ActionData &action_data) {
     std::cout << "Not a JuliaSet object. Can't set parameters.";
   }
 }
+
+// Threaded Grid
+void calculateFractalSingleThread(ActionData &action_data) {
+  action_data.getGrid().NumberGrid::calculateAllNumbers();
+}

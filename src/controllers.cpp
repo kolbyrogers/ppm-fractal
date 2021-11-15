@@ -129,8 +129,9 @@ void configureMenu(MenuData &menu_data) {
                       "image using the color table.");
   menu_data.addAction("fractal-plane-size", setFractalPlaneSize,
                       "Set the dimensions of the grid in the complex plane.");
-  menu_data.addAction("fractal-calculate", calculateFractal,
-                      "Calculate the escape values for the fractal.");
+  menu_data.addAction(
+      "fractal-calculate", calculateFractal,
+      "Calculate the escape values for the fractal, multi-thread.");
   menu_data.addAction("julia-parameters", setJuliaParameters,
                       "Set the parameters of the Julia Set function.");
   menu_data.addAction("complex-fractal", setComplexFractal,
@@ -143,6 +144,9 @@ void configureMenu(MenuData &menu_data) {
       "Choose to make a Julia set with the fourth power function.");
   menu_data.addAction("manhattan", setManhattanNumbers,
                       "Choose to make a Manhattan distance grid.");
+  menu_data.addAction(
+      "fractal-calculate-single-thread", calculateFractalSingleThread,
+      "Calculate the escape values for the fractal, single-thread.");
 }
 int imageMenu(std::istream &is, std::ostream &os) {
   ActionData action_data(is, os);

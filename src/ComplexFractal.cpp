@@ -2,12 +2,12 @@
 #include <cmath>
 
 ComplexFractal::ComplexFractal()
-    : NumberGrid(200, 300), mMinX(-1.5), mMaxX(1.5), mMinY(-1.0), mMaxY(1.0),
+    : ThreadedGrid(200, 300), mMinX(-1.5), mMaxX(1.5), mMinY(-1.0), mMaxY(1.0),
       mDeltaX(.01), mDeltaY(.01) {}
 ComplexFractal::ComplexFractal(const int &height, const int &width,
                                const double &min_x, const double &max_x,
                                const double &min_y, const double &max_y)
-    : NumberGrid(height, width), mMinX(min_x), mMaxX(max_x), mMinY(min_y),
+    : ThreadedGrid(height, width), mMinX(min_x), mMaxX(max_x), mMinY(min_y),
       mMaxY(max_y) {}
 
 ComplexFractal::~ComplexFractal() {}

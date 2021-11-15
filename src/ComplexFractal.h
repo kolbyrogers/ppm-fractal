@@ -1,8 +1,8 @@
 #ifndef COMPLEXFRACTAL_H
 #define COMPLEXFRACTAL_H
-#include "NumberGrid.h"
+#include "ThreadedGrid.h"
 
-class ComplexFractal : public NumberGrid {
+class ComplexFractal : public ThreadedGrid {
 private:
   double mMinX;
   double mMaxX;

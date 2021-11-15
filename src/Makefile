@@ -1,6 +1,6 @@
 targets = hello questions_3 ascii_image image_file ActionData.o MenuData.o ppm_menu # inquisitor simple_squares_ascii
-objects = user_io.o controllers.o image_drawing.o image_output.o Image.o PPM.o MenuData.o ActionData.o image_filters.o NumberGrid.o ColorTable.o ComplexFractal.o JuliaSet.o MandelbrotSet.o
-headers = image_menu.h Image.h PPM.h MenuData.h ActionData.h NumberGrid.h
+objects = user_io.o controllers.o image_drawing.o image_output.o Image.o PPM.o MenuData.o ActionData.o image_filters.o NumberGrid.o ColorTable.o ComplexFractal.o JuliaSet.o MandelbrotSet.o ThreadedGrid.o
+headers = image_menu.h Image.h PPM.h MenuData.h ActionData.h NumberGrid.h ThreadedGrid.h ThreadedVector.h
 flags = -Wall -Werror -Wextra -g -std=c++11 
 
 all: $(targets)
@@ -101,6 +101,11 @@ JuliaSet.o: JuliaSet.cpp $(headers)
 # --Mandelbrot Set--
 MandelbrotSet.o: MandelbrotSet.cpp $(headers)
 	g++ $(flags) -c MandelbrotSet.cpp
+
+# --Threaded Grid--
+ThreadedGrid.o: ThreadedGrid.cpp $(headers)
+	g++ $(flags) -c ThreadedGrid.cpp
+
 # ---Clean---
 clean:
 	-rm -f *.o
