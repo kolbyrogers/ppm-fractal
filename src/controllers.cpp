@@ -131,7 +131,7 @@ void configureMenu(MenuData &menu_data) {
                       "Set the dimensions of the grid in the complex plane.");
   menu_data.addAction(
       "fractal-calculate", calculateFractal,
-      "Calculate the escape values for the fractal, multi-thread.");
+      "Calculate the escape values for the fractal.");
   menu_data.addAction("julia-parameters", setJuliaParameters,
                       "Set the parameters of the Julia Set function.");
   menu_data.addAction("complex-fractal", setComplexFractal,
