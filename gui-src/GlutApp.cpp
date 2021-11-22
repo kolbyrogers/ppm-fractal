@@ -133,8 +133,6 @@ void GlutApp::gridApplyColorTable() {
   mOutputStream.str("");
   mInputStream.clear();
   mInputStream.str("");
-  // set-color-table-size
-  // 100
   {
     std::stringstream tmp;
     tmp << 100;
@@ -145,15 +143,6 @@ void GlutApp::gridApplyColorTable() {
   mOutputStream.str("");
   mInputStream.clear();
   mInputStream.str("");
-  // set-color-gradient
-  // 0
-  // 3
-  // 76
-  // 140
-  // 99
-  // 217
-  // 84
-  // 72
   {
     std::stringstream tmp;
     tmp << 0 << " " << 3 << " " << 76 << " " << 140 << " " << 99 << " " << 217

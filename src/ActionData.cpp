@@ -1,7 +1,11 @@
 #include "ActionData.h"
 
 ActionData::ActionData(std::istream &is, std::ostream &os)
-    : mIS(is), mOS(os), mDone(false), mGridPointer(0), mColorTable(16) {}
+    : mIS(is), mOS(os), mDone(false), mGridPointer(0), mColorTable(16) {
+  Color color1(0, 255, 0);
+  Color color2(255, 0, 255);
+  mColorTable.insertGradient(color1, color2, 0, 15);
+}
 ActionData::~ActionData() {
   if (mGridPointer != 0) {
     delete mGridPointer;
