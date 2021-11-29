@@ -45,6 +45,53 @@ void keyboard_cb(unsigned char c, int x, int y) {
   case 'c':
     g_app_data->createComplexFractal2();
     break;
+  case 'T':
+    g_app_data->setInteractionMode(IM_COLORTABLE);
+    break;
+  case 't':
+    g_app_data->setInteractionMode(IM_FRACTAL);
+    break;
+  case '>':
+  case '.':
+    g_app_data->increaseColorTableSize();
+    break;
+  case '<':
+  case ',':
+    g_app_data->decreaseColorTableSize();
+    break;
+  case 'b':
+    g_app_data->setFractalMode(M_MANDELBROT);
+    g_app_data->createFractal();
+    break;
+  case 'n':
+    g_app_data->setFractalMode(M_JULIA);
+    g_app_data->createFractal();
+    break;
+  case 'F':
+    g_app_data->setFractalMode(M_COMPLEX);
+    g_app_data->createFractal();
+    break;
+  case 'z':
+    g_app_data->zoomIn();
+    g_app_data->createFractal();
+    break;
+  case 'Z':
+    g_app_data->zoomOut();
+    g_app_data->createFractal();
+    break;
+  case 'R':
+    g_app_data->resetPlane();
+    g_app_data->createFractal();
+    break;
+  case '+':
+  case '=':
+    g_app_data->increaseMaxNumber();
+    g_app_data->createFractal();
+    break;
+  case '-':
+    g_app_data->decreaseMaxNumber();
+    g_app_data->createFractal();
+    break;
   default:
     return; // if we don't care, return without glutPostRedisplay()
   }
@@ -59,12 +106,20 @@ void special_cb(int c, int x, int y) {
   std::cout << "special key: " << (int)c << std::endl;
   switch (c) {
   case GLUT_KEY_UP:
+    g_app_data->moveUp();
+    g_app_data->createFractal();
     break;
   case GLUT_KEY_DOWN:
+    g_app_data->moveDown();
+    g_app_data->createFractal();
     break;
   case GLUT_KEY_LEFT:
+    g_app_data->moveLeft();
+    g_app_data->createFractal();
     break;
   case GLUT_KEY_RIGHT:
+    g_app_data->moveRight();
+    g_app_data->createFractal();
     break;
   default:
     return; // if we don't care, return without glutPostRedisplay()
@@ -100,6 +155,7 @@ void mouse_cb(int mouse_button, int state, int x, int y) {
   if (mouse_button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
     std::cout << "Left Mouse Down. @" << xdisplay << "," << ydisplay
               << std::endl;
+    g_app_data->setAB(x, y);
   }
   if (mouse_button == GLUT_LEFT_BUTTON && state == GLUT_UP) {
     std::cout << "Left Mouse Up. @" << xdisplay << "," << ydisplay << std::endl;

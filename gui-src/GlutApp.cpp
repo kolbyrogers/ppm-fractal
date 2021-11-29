@@ -1,11 +1,18 @@
 #include "GlutApp.h"
+#include "../src/image_menu.h"
 #include "glut_app.h"
-#include "image_menu.h"
 
 GlutApp::GlutApp(int height, int width)
-    : mHeight(height), mWidth(width), mActionData(mInputStream, mOutputStream) {
+    : mHeight(height), mWidth(width), mActionData(mInputStream, mOutputStream),
+      mMinX(-2.0), mMaxX(2.0), mMinY(-2.0), mMaxY(2.0),
+      mInteractionMode(IM_FRACTAL), mFractalMode(M_MANDELBROT), mMaxNumber(200),
+      mColor1(59, 188, 217), mColor2(242, 100, 48), mNumColor(32) {
+
   configureMenu(mMenuData);
   mActionData.setGrid(new ComplexFractal);
+
+  setColorTable();
+  createFractal();
 
   // // read1
   // mOutputStream.clear();
@@ -29,19 +36,23 @@ int GlutApp::getHeight() const { return mHeight; }
 int GlutApp::getWidth() const { return mWidth; }
 
 void GlutApp::display() {
-  PPM &p = mActionData.getOutputImage();
-  double max = static_cast<double>(p.getMaxColorValue());
-  double r, g, b;
-  int row, column;
-  glBegin(GL_POINTS);
-  for (row = 0; row < p.getHeight(); row++) {
-    for (column = 0; column < p.getWidth(); column++) {
-      r = p.getChannel(row, column, 0) / max;
-      g = p.getChannel(row, column, 1) / max;
-      b = p.getChannel(row, column, 2) / max;
-      glColor3d(r, g, b);
-      glVertex2i(column, p.getHeight() - row - 1);
+  if (mInteractionMode == IM_FRACTAL) {
+    PPM &p = mActionData.getOutputImage();
+    double max = static_cast<double>(p.getMaxColorValue());
+    double r, g, b;
+    int row, column;
+    glBegin(GL_POINTS);
+    for (row = 0; row < p.getHeight(); row++) {
+      for (column = 0; column < p.getWidth(); column++) {
+        r = p.getChannel(row, column, 0) / max;
+        g = p.getChannel(row, column, 1) / max;
+        b = p.getChannel(row, column, 2) / max;
+        glColor3d(r, g, b);
+        glVertex2i(column, p.getHeight() - row - 1);
+      }
     }
+  } else if (mInteractionMode == IM_COLORTABLE) {
+    displayColorTable();
   }
   glEnd();
 }
@@ -133,27 +144,6 @@ void GlutApp::gridApplyColorTable() {
   mOutputStream.str("");
   mInputStream.clear();
   mInputStream.str("");
-  {
-    std::stringstream tmp;
-    tmp << 100;
-    mInputStream.str(tmp.str());
-  }
-  takeAction("set-color-table-size", mMenuData, mActionData);
-  mOutputStream.clear();
-  mOutputStream.str("");
-  mInputStream.clear();
-  mInputStream.str("");
-  {
-    std::stringstream tmp;
-    tmp << 0 << " " << 3 << " " << 76 << " " << 140 << " " << 99 << " " << 217
-        << " " << 84 << " " << 72;
-    mInputStream.str(tmp.str());
-  }
-  takeAction("set-color-gradient", mMenuData, mActionData);
-  mOutputStream.clear();
-  mOutputStream.str("");
-  mInputStream.clear();
-  mInputStream.str("");
   takeAction("grid-apply-color-table", mMenuData, mActionData);
 }
 
@@ -193,7 +183,7 @@ void GlutApp::createMandelbrot2() {
 }
 void GlutApp::createComplexFractal() {
   selectComplexFractal();
-  configureGrid(10000);
+  configureGrid(1000);
   fractalPlaneSize(-1.5, 1.5, -1.5, 1.5);
   fractalCalculate();
   gridApplyColorTable();
@@ -201,10 +191,163 @@ void GlutApp::createComplexFractal() {
 }
 void GlutApp::createComplexFractal2() {
   selectComplexFractal();
-  configureGrid(1000);
+  configureGrid(100);
   fractalPlaneSize(-2.0, 2.0, -2.0, 2.0);
   fractalCalculate();
   gridApplyColorTable();
   // Creates a Complex Fractal. Must be different than the other one. Use the
   // methods defined above, as appropriate.
+}
+
+void GlutApp::displayColorTable() {
+  glBegin(GL_POINTS);
+  int row, col;
+  for (row = 0; row < mHeight; ++row) {
+    for (col = 0; col < mWidth; ++col) {
+      int i = col * mNumColor / mWidth;
+      Color c1 = mActionData.getTable()[i];
+      double red = c1.getRed();
+      double green = c1.getGreen();
+      double blue = c1.getBlue();
+      red /= 255.0;
+      green /= 255.0;
+      blue /= 255.0;
+      glColor3d(red, green, blue);
+      glVertex2i(col, row);
+    }
+  }
+  glEnd();
+}
+void GlutApp::setInteractionMode(InteractionMode mode) {
+  mInteractionMode = mode;
+}
+void GlutApp::setColorTable() {
+  mActionData.getTable().setNumberOfColors(mNumColor);
+  mActionData.getTable().insertGradient(mColor1, mColor2, 0, mNumColor - 1);
+  // mOutputStream.clear();
+  // mOutputStream.str("");
+  // mInputStream.clear();
+  // mInputStream.str("");
+  //{
+  // std::stringstream tmp;
+  // tmp << mNumColor;
+  // mInputStream.str(tmp.str());
+  //}
+  // takeAction("set-color-table-size", mMenuData, mActionData);
+
+  // mOutputStream.clear();
+  // mOutputStream.str("");
+  // mInputStream.clear();
+  // mInputStream.str("");
+  //{
+  // std::stringstream tmp;
+  // tmp << 0 << " " << mColor1.getRed() << " " << mColor1.getGreen() << " "
+  //<< mColor1.getBlue() << " " << mNumColor - 1 << " " << mColor2.getRed()
+  //<< " " << mColor2.getGreen() << " " << mColor2.getBlue();
+  // mInputStream.str(tmp.str());
+  //}
+  // takeAction("set-color-gradient", mMenuData, mActionData);
+}
+void GlutApp::decreaseColorTableSize() {
+  if (mNumColor > 10) {
+    mNumColor /= 1.1;
+    setColorTable();
+    gridApplyColorTable();
+  }
+}
+void GlutApp::increaseColorTableSize() {
+  if (mNumColor < 1024) {
+    mNumColor *= 1.1;
+    setColorTable();
+    gridApplyColorTable();
+  }
+}
+void GlutApp::zoomIn() {
+  double dx, dy;
+  dx = (1.0 - 0.9) * (mMaxX - mMinX) / 2.0;
+  mMinX += dx;
+  mMaxX -= dx;
+  dy = (1.0 - 0.9) * (mMaxY - mMinY) / 2.0;
+  mMinY += dy;
+  mMaxY -= dy;
+}
+void GlutApp::zoomOut() {
+  double dx, dy;
+  dx = (1.0 - 0.9) * (mMaxX - mMinX) / 2.0;
+  mMinX -= dx;
+  mMaxX += dx;
+  dy = (1.0 - 0.9) * (mMaxY - mMinY) / 2.0;
+  mMinY -= dy;
+  mMaxY += dy;
+}
+void GlutApp::moveLeft() {
+  double dx;
+  dx = (1.0 - 0.9) * (mMaxX - mMinX) / 2.0;
+  if (mMinX - dx >= -2.0) {
+    mMinX -= dx;
+    mMaxX -= dx;
+  }
+}
+void GlutApp::moveRight() {
+  double dx;
+  dx = (1.0 - 0.9) * (mMaxX - mMinX) / 2.0;
+  if (mMaxX + dx <= 2.0) {
+    mMinX += dx;
+    mMaxX += dx;
+  }
+}
+void GlutApp::moveDown() {
+  double dy;
+  dy = (1.0 - 0.9) * (mMaxY - mMinY) / 2.0;
+  if (mMinY - dy >= -2.0) {
+    mMinY -= dy;
+    mMaxY -= dy;
+  }
+}
+void GlutApp::moveUp() {
+  double dy;
+  dy = (1.0 - 0.9) * (mMaxY - mMinY) / 2.0;
+  if (mMaxY + dy <= 2.0) {
+    mMinY += dy;
+    mMaxY += dy;
+  }
+}
+void GlutApp::setFractalMode(FractalMode mode) { mFractalMode = mode; }
+void GlutApp::increaseMaxNumber() {
+  if (mMaxNumber < 2048) {
+    mMaxNumber *= 1.1;
+  }
+}
+void GlutApp::decreaseMaxNumber() {
+  if (mMaxNumber > 11) {
+    mMaxNumber /= 1.1;
+  }
+}
+void GlutApp::setAB(int x, int y) {
+  mActionData.getGrid();
+  ComplexFractal *f1 = dynamic_cast<ComplexFractal *>(&mActionData.getGrid());
+  if (mFractalMode == M_MANDELBROT && f1 != 0) {
+    mA = mMinX + x * f1->getDeltaX();
+    mB = mMinY + y * f1->getDeltaY();
+  }
+}
+void GlutApp::resetPlane() {
+  mMinX = -2.0;
+  mMaxX = 2.0;
+  mMinY = -2.0;
+  mMaxY = 2.0;
+}
+void GlutApp::createFractal() {
+  if (mFractalMode == M_MANDELBROT) {
+    selectMandelbrot();
+  } else if (mFractalMode == M_JULIA) {
+    selectJulia();
+    juliaParameters(mA, mB);
+  } else if (mFractalMode == M_COMPLEX) {
+    selectComplexFractal();
+  }
+  configureGrid(mMaxNumber);
+  fractalPlaneSize(mMinX, mMaxX, mMinY, mMaxY);
+  fractalCalculate();
+  gridApplyColorTable();
 }

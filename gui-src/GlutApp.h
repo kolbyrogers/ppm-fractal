@@ -1,12 +1,15 @@
 #ifndef _GLUTAPP_H_
 #define _GLUTAPP_H_
+#define GL_SILENCE_DEPRECATION
 
-#include "ActionData.h"
-#include "MenuData.h"
+#include "../src/ActionData.h"
+#include "../src/MenuData.h"
 #include <sstream>
 
-class GlutApp
-{
+enum InteractionMode { IM_FRACTAL, IM_COLORTABLE };
+enum FractalMode { M_MANDELBROT, M_JULIA, M_COMPLEX };
+
+class GlutApp {
 public:
   GlutApp(int height, int width);
   void setSize(int height, int width);
@@ -28,12 +31,38 @@ public:
   void createComplexFractal();
   void createComplexFractal2();
 
+  void displayColorTable();
+  void setInteractionMode(InteractionMode mode);
+  void setColorTable();
+  void decreaseColorTableSize();
+  void increaseColorTableSize();
+  void zoomIn();
+  void zoomOut();
+  void moveLeft();
+  void moveRight();
+  void moveDown();
+  void moveUp();
+  void setFractalMode(FractalMode mode);
+  void increaseMaxNumber();
+  void decreaseMaxNumber();
+  void setAB(int x, int y);
+  void resetPlane();
+  void createFractal();
+
 protected:
   int mHeight, mWidth;
   std::stringstream mInputStream;
   std::stringstream mOutputStream;
   ActionData mActionData;
   MenuData mMenuData;
+  double mMinX, mMaxX, mMinY, mMaxY;
+  double mA, mB;
+  InteractionMode mInteractionMode;
+  FractalMode mFractalMode;
+  int mMaxNumber;
+  Color mColor1;
+  Color mColor2;
+  int mNumColor;
 };
 
 #endif /* _GLUTAPP_H_ */
