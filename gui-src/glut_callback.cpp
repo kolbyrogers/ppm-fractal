@@ -92,6 +92,30 @@ void keyboard_cb(unsigned char c, int x, int y) {
     g_app_data->decreaseMaxNumber();
     g_app_data->createFractal();
     break;
+  case '1':
+    g_app_data->setInteractionMode(IM_COLOR1);
+    break;
+  case '2':
+    g_app_data->setInteractionMode(IM_COLOR2);
+    break;
+  case 'Y':
+    g_app_data->increaseRed();
+    break;
+  case 'y':
+    g_app_data->decreaseRed();
+    break;
+  case 'U':
+    g_app_data->increaseGreen();
+    break;
+  case 'u':
+    g_app_data->decreaseGreen();
+    break;
+  case 'I':
+    g_app_data->increaseBlue();
+    break;
+  case 'i':
+    g_app_data->decreaseBlue();
+    break;
   default:
     return; // if we don't care, return without glutPostRedisplay()
   }

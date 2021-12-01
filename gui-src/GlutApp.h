@@ -6,7 +6,7 @@
 #include "../src/MenuData.h"
 #include <sstream>
 
-enum InteractionMode { IM_FRACTAL, IM_COLORTABLE };
+enum InteractionMode { IM_FRACTAL, IM_COLORTABLE, IM_COLOR1, IM_COLOR2 };
 enum FractalMode { M_MANDELBROT, M_JULIA, M_COMPLEX };
 
 class GlutApp {
@@ -48,6 +48,16 @@ public:
   void setAB(int x, int y);
   void resetPlane();
   void createFractal();
+
+  void increaseChannel(Color &color, int channel);
+  void decreaseChannel(Color &color, int channel);
+  Color &fetchColor();
+  void increaseRed();
+  void decreaseRed();
+  void increaseGreen();
+  void decreaseGreen();
+  void increaseBlue();
+  void decreaseBlue();
 
 protected:
   int mHeight, mWidth;

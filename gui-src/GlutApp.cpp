@@ -6,7 +6,7 @@ GlutApp::GlutApp(int height, int width)
     : mHeight(height), mWidth(width), mActionData(mInputStream, mOutputStream),
       mMinX(-2.0), mMaxX(2.0), mMinY(-2.0), mMaxY(2.0),
       mInteractionMode(IM_FRACTAL), mFractalMode(M_MANDELBROT), mMaxNumber(200),
-      mColor1(59, 188, 217), mColor2(242, 100, 48), mNumColor(32) {
+      mColor1(243, 254, 176), mColor2(129, 47, 51), mNumColor(32) {
 
   configureMenu(mMenuData);
   mActionData.setGrid(new ComplexFractal);
@@ -52,6 +52,8 @@ void GlutApp::display() {
       }
     }
   } else if (mInteractionMode == IM_COLORTABLE) {
+    displayColorTable();
+  } else if (mInteractionMode == IM_COLOR1 || mInteractionMode == IM_COLOR2) {
     displayColorTable();
   }
   glEnd();
@@ -351,3 +353,36 @@ void GlutApp::createFractal() {
   fractalCalculate();
   gridApplyColorTable();
 }
+
+void GlutApp::increaseChannel(Color &color, int channel) {
+  color.setChannel(channel, (color.getChannel(channel) + 10));
+  if (color.getChannel(channel) > 255) {
+    color.setChannel(channel, 255);
+  }
+  setColorTable();
+  gridApplyColorTable();
+}
+void GlutApp::decreaseChannel(Color &color, int channel) {
+  color.setChannel(channel, (color.getChannel(channel) - 10));
+  if (color.getChannel(channel) < 0) {
+    color.setChannel(channel, 0);
+  }
+  setColorTable();
+  gridApplyColorTable();
+}
+Color &GlutApp::fetchColor() {
+  if (mInteractionMode == IM_COLOR1) {
+    return mColor1;
+  } else if (mInteractionMode == IM_COLOR2) {
+    return mColor2;
+  } else {
+    static Color color = Color();
+    return color;
+  }
+}
+void GlutApp::increaseRed() { increaseChannel(fetchColor(), 0); }
+void GlutApp::decreaseRed() { decreaseChannel(fetchColor(), 0); }
+void GlutApp::increaseGreen() { increaseChannel(fetchColor(), 1); }
+void GlutApp::decreaseGreen() { decreaseChannel(fetchColor(), 1); }
+void GlutApp::increaseBlue() { increaseChannel(fetchColor(), 2); }
+void GlutApp::decreaseBlue() { decreaseChannel(fetchColor(), 2); }
