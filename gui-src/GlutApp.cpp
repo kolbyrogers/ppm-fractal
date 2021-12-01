@@ -52,9 +52,9 @@ void GlutApp::display() {
         glVertex2i(column, p.getHeight() - row - 1);
       }
     }
-  } else if (mInteractionMode == IM_COLORTABLE) {
-    displayColorTable();
-  } else if (mInteractionMode == IM_COLOR1 || mInteractionMode == IM_COLOR2) {
+  } else if (mInteractionMode == IM_COLORTABLE ||
+             mInteractionMode == IM_COLOR1 || mInteractionMode == IM_COLOR2 ||
+             mInteractionMode == IM_COLOR3) {
     displayColorTable();
   }
   glEnd();
@@ -378,6 +378,8 @@ Color &GlutApp::fetchColor() {
     return mColor1;
   } else if (mInteractionMode == IM_COLOR2) {
     return mColor2;
+  } else if (mInteractionMode == IM_COLOR3) {
+    return mColor3;
   } else {
     static Color color = Color();
     return color;

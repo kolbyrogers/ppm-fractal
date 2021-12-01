@@ -6,7 +6,13 @@
 #include "../src/MenuData.h"
 #include <sstream>
 
-enum InteractionMode { IM_FRACTAL, IM_COLORTABLE, IM_COLOR1, IM_COLOR2 };
+enum InteractionMode {
+  IM_FRACTAL,
+  IM_COLORTABLE,
+  IM_COLOR1,
+  IM_COLOR2,
+  IM_COLOR3
+};
 enum FractalMode { M_MANDELBROT, M_JULIA, M_COMPLEX };
 
 class GlutApp {

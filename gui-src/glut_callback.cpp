@@ -98,6 +98,9 @@ void keyboard_cb(unsigned char c, int x, int y) {
   case '2':
     g_app_data->setInteractionMode(IM_COLOR2);
     break;
+  case '3':
+    g_app_data->setInteractionMode(IM_COLOR3);
+    break;
   case 'Y':
     g_app_data->increaseRed();
     break;
