@@ -6,7 +6,8 @@ GlutApp::GlutApp(int height, int width)
     : mHeight(height), mWidth(width), mActionData(mInputStream, mOutputStream),
       mMinX(-2.0), mMaxX(2.0), mMinY(-2.0), mMaxY(2.0),
       mInteractionMode(IM_FRACTAL), mFractalMode(M_MANDELBROT), mMaxNumber(200),
-      mColor1(243, 254, 176), mColor2(129, 47, 51), mNumColor(32) {
+      mColor1(243, 254, 176), mColor2(129, 47, 51), mColor3(50, 50, 0),
+      mNumColor(32) {
 
   configureMenu(mMenuData);
   mActionData.setGrid(new ComplexFractal);
@@ -225,7 +226,9 @@ void GlutApp::setInteractionMode(InteractionMode mode) {
 }
 void GlutApp::setColorTable() {
   mActionData.getTable().setNumberOfColors(mNumColor);
-  mActionData.getTable().insertGradient(mColor1, mColor2, 0, mNumColor - 1);
+  mActionData.getTable().insertGradient(mColor1, mColor2, 0, mNumColor / 2);
+  mActionData.getTable().insertGradient(mColor2, mColor3, mNumColor / 2,
+                                        mNumColor - 1);
   // mOutputStream.clear();
   // mOutputStream.str("");
   // mInputStream.clear();

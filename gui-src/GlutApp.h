@@ -72,6 +72,7 @@ protected:
   int mMaxNumber;
   Color mColor1;
   Color mColor2;
+  Color mColor3;
   int mNumColor;
 };
 
