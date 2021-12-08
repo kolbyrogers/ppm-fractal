@@ -8,9 +8,9 @@ class Color {
 public:
   Color();
   Color(const int &red, const int &green, const int &blue);
-  int getRed() const;
-  int getGreen() const;
-  int getBlue() const;
+  double getRed() const;
+  double getGreen() const;
+  double getBlue() const;
   int getChannel(const int &channel) const;
   void setRed(const int &value);
   void setGreen(const int &value);

@@ -119,6 +119,9 @@ void keyboard_cb(unsigned char c, int x, int y) {
   case 'i':
     g_app_data->decreaseBlue();
     break;
+  case 'a':
+    g_app_data->toggleHSVColor();
+    break;
   default:
     return; // if we don't care, return without glutPostRedisplay()
   }

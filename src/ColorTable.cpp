@@ -8,11 +8,11 @@ Color::Color() : mRed(0), mGreen(0), mBlue(0) {}
 Color::Color(const int &red, const int &green, const int &blue)
     : mRed(red), mGreen(green), mBlue(blue) {}
 
-int Color::getRed() const { return mRed; }
+double Color::getRed() const { return mRed; }
 
-int Color::getGreen() const { return mGreen; }
+double Color::getGreen() const { return mGreen; }
 
-int Color::getBlue() const { return mBlue; }
+double Color::getBlue() const { return mBlue; }
 
 int Color::getChannel(const int &channel) const {
   if (channel == 0) {
@@ -160,19 +160,17 @@ void ColorTable::insertHueSaturationValueGradient(const Color &color1,
         gradientSlope(saturation1, saturation2, position1, position2);
     double value_slope = gradientSlope(value1, value2, position1, position2);
     for (int i = position1; i <= position2; ++i) {
-      for (int channel = 0; channel < 3; ++channel) {
-        double new_hue = gradientValue(hue1, hue2, hue_slope, i);
-        double new_saturation =
-            gradientValue(saturation1, saturation2, saturation_slope, i);
-        double new_value = gradientValue(value1, value2, value_slope, i);
-        Color hsv_color;
-        hsv_color.setFromHSV(new_hue, new_saturation, new_value);
-        mColors[i].setChannel(channel, hsv_color.getChannel(channel));
-        // for each position in the gradient
-        // 	calculate the hue, the saturation, and the value.
-        // 	set a color using the HSV
-        // 	assign the color into the correct position in the color table.
-      }
+      double new_hue = gradientValue(hue1, hue2, hue_slope, i);
+      double new_saturation =
+          gradientValue(saturation1, saturation2, saturation_slope, i);
+      double new_value = gradientValue(value1, value2, value_slope, i);
+      Color hsv_color;
+      hsv_color.setFromHSV(new_hue, new_saturation, new_value);
+      mColors[i] = hsv_color;
+      // for each position in the gradient
+      // 	calculate the hue, the saturation, and the value.
+      // 	set a color using the HSV
+      // 	assign the color into the correct position in the color table.
     }
   }
 }

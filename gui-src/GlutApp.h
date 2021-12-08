@@ -64,6 +64,7 @@ public:
   void decreaseGreen();
   void increaseBlue();
   void decreaseBlue();
+  void toggleHSVColor();
 
 protected:
   int mHeight, mWidth;
@@ -80,6 +81,7 @@ protected:
   Color mColor2;
   Color mColor3;
   int mNumColor;
+  bool mHSVColor;
 };
 
 #endif /* _GLUTAPP_H_ */

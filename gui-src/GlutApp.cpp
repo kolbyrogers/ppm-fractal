@@ -7,7 +7,7 @@ GlutApp::GlutApp(int height, int width)
       mMinX(-2.0), mMaxX(2.0), mMinY(-2.0), mMaxY(2.0),
       mInteractionMode(IM_FRACTAL), mFractalMode(M_MANDELBROT), mMaxNumber(200),
       mColor1(243, 254, 176), mColor2(129, 47, 51), mColor3(50, 50, 0),
-      mNumColor(32) {
+      mNumColor(32), mHSVColor(false) {
 
   configureMenu(mMenuData);
   mActionData.setGrid(new ComplexFractal);
@@ -226,9 +226,6 @@ void GlutApp::setInteractionMode(InteractionMode mode) {
 }
 void GlutApp::setColorTable() {
   mActionData.getTable().setNumberOfColors(mNumColor);
-  mActionData.getTable().insertGradient(mColor1, mColor2, 0, mNumColor / 2);
-  mActionData.getTable().insertGradient(mColor2, mColor3, mNumColor / 2,
-                                        mNumColor - 1);
   // mOutputStream.clear();
   // mOutputStream.str("");
   // mInputStream.clear();
@@ -239,19 +236,68 @@ void GlutApp::setColorTable() {
   // mInputStream.str(tmp.str());
   //}
   // takeAction("set-color-table-size", mMenuData, mActionData);
+  if (!mHSVColor) {
+    mActionData.getTable().insertGradient(mColor1, mColor2, 0, mNumColor / 2);
+    mActionData.getTable().insertGradient(mColor2, mColor3, mNumColor / 2,
+                                          mNumColor - 1);
+    // mOutputStream.clear();
+    // mOutputStream.str("");
+    // mInputStream.clear();
+    // mInputStream.str("");
+    //{
+    // std::stringstream tmp;
+    // tmp << 0 << " " << mColor1.getRed() << " " << mColor1.getGreen() << " "
+    //<< mColor1.getBlue() << " " << mNumColor - 1 << " " << mColor2.getRed()
+    //<< " " << mColor2.getGreen() << " " << mColor2.getBlue();
+    // mInputStream.str(tmp.str());
+    //}
+    // takeAction("set-color-gradient", mMenuData, mActionData);
 
-  // mOutputStream.clear();
-  // mOutputStream.str("");
-  // mInputStream.clear();
-  // mInputStream.str("");
-  //{
-  // std::stringstream tmp;
-  // tmp << 0 << " " << mColor1.getRed() << " " << mColor1.getGreen() << " "
-  //<< mColor1.getBlue() << " " << mNumColor - 1 << " " << mColor2.getRed()
-  //<< " " << mColor2.getGreen() << " " << mColor2.getBlue();
-  // mInputStream.str(tmp.str());
-  //}
-  // takeAction("set-color-gradient", mMenuData, mActionData);
+  } else {
+    double hue1, saturation1, value1;
+    mColor1.getHSV(hue1, saturation1, value1);
+    double hue2, saturation2, value2;
+    mColor2.getHSV(hue2, saturation2, value2);
+    double hue3, saturation3, value3;
+    mColor3.getHSV(hue3, saturation3, value3);
+    Color hsv1;
+    Color hsv2;
+    Color hsv3;
+    hsv1.setFromHSV(hue1, saturation1, value1);
+    hsv2.setFromHSV(hue2, saturation2, value2);
+    hsv3.setFromHSV(hue3, saturation3, value3);
+    mActionData.getTable().insertHueSaturationValueGradient(hsv1, hsv2, 0,
+                                                            mNumColor / 2);
+    mActionData.getTable().insertHueSaturationValueGradient(
+        hsv2, hsv3, mNumColor / 2, mNumColor - 1);
+
+    // mOutputStream.clear();
+    // mOutputStream.str("");
+    // mInputStream.clear();
+    // mInputStream.str("");
+    //{
+    // std::stringstream tmp;
+    // tmp << 0 << " " << hue1 << " " << saturation1 << " " << value1 << " "
+    //<< mNumColor / 2 << " " << mColor2.getRed() << " "
+    //<< mColor2.getGreen() << " " << mColor2.getBlue();
+    // mInputStream.str(tmp.str());
+    //}
+    // takeAction("set-hsv-gradient", mMenuData, mActionData);
+
+    // mOutputStream.clear();
+    // mOutputStream.str("");
+    // mInputStream.clear();
+    // mInputStream.str("");
+    //{
+    // std::stringstream tmp;
+    // tmp << mNumColor / 2 << " " << hue2 << " " << saturation2 << " " <<
+    // value2
+    //<< " " << mNumColor - 1 << " " << hue3 << " " << saturation3 << " "
+    //<< value3;
+    // mInputStream.str(tmp.str());
+    //}
+    // takeAction("set-hsv-gradient", mMenuData, mActionData);
+  }
 }
 void GlutApp::decreaseColorTableSize() {
   if (mNumColor > 10) {
@@ -391,3 +437,9 @@ void GlutApp::increaseGreen() { increaseChannel(fetchColor(), 1); }
 void GlutApp::decreaseGreen() { decreaseChannel(fetchColor(), 1); }
 void GlutApp::increaseBlue() { increaseChannel(fetchColor(), 2); }
 void GlutApp::decreaseBlue() { decreaseChannel(fetchColor(), 2); }
+
+void GlutApp::toggleHSVColor() {
+  mHSVColor = !mHSVColor;
+  setColorTable();
+  gridApplyColorTable();
+}
