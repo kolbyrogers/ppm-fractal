@@ -1,0 +1,62 @@
+name: dsu-cs-3005-check-exam5
+on: [push]
+jobs:
+
+##########################################################################
+
+  pull-code:
+    name: Pull source code
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+        
+##########################################################################        
+
+  exam5-enabled:
+    name: Exam5 enabled?
+    runs-on: self-hosted
+    needs: [pull-code]
+    continue-on-error: true
+    outputs:
+      output1: ${{ steps.step1.outcome }}
+    env:
+      ASSIGNMENT: exam5
+    steps:
+      - name: Enabled?
+        id: step1
+        run: grade_manager --cmd enabled --programs ${{ env.ASSIGNMENT }} --verbose
+        
+##########################################################################        
+
+  exam5-anti-alias-check:
+    name: Anti Alias
+    runs-on: self-hosted
+    needs: [exam5-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam5-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam5/anti-alias
+      ASSIGNMENT_NUMBER: 7210
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
+##########################################################################        
+
+  exam5-hsv-gradient-check:
+    name: HSV Gradient
+    runs-on: self-hosted
+    needs: [exam5-enabled]
+    continue-on-error: false
+    if: ${{ needs.exam5-enabled.outputs.output1 == 'success' }}
+    env:
+      PROGRAM: ppm_menu
+      ASSIGNMENT: exam5/hsv-gradient
+      ASSIGNMENT_NUMBER: 7211
+    steps:
+      - run: grade_manager --cmd make --programs ${{ env.PROGRAM }} --verbose
+      - run: grade_manager --cmd unit-test --unit-test-working-directory ${{ github.repository }} --unit-test-assignment-number ${{ env.ASSIGNMENT_NUMBER }} --verbose --timeout 60
+      - run: grade_manager --cmd grade-ppm --programs ${{ env.PROGRAM }} --acceptance-tests-location ${{ env.ASSIGNMENT }}/acceptance_tests --image-location images --image-link images --verbose
+        
