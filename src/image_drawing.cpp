@@ -272,13 +272,13 @@ void calculateFractalSingleThread(ActionData &action_data) {
 // Final Exam
 void setHueSaturationValueGradient(ActionData &action_data) {
   int p1 = getInteger(action_data, "First position? ");
-  double fHue = getInteger(action_data, "First hue? ");
-  double fSaturation = getInteger(action_data, "First saturation? ");
-  double fValue = getInteger(action_data, "First value? ");
+  double fHue = getDouble(action_data, "First hue? ");
+  double fSaturation = getDouble(action_data, "First saturation? ");
+  double fValue = getDouble(action_data, "First value? ");
   int p2 = getInteger(action_data, "Second position? ");
-  double sHue = getInteger(action_data, "Second hue? ");
-  double sSaturation = getInteger(action_data, "Second saturation? ");
-  double sValue = getInteger(action_data, "Second value? ");
+  double sHue = getDouble(action_data, "Second hue? ");
+  double sSaturation = getDouble(action_data, "Second saturation? ");
+  double sValue = getDouble(action_data, "Second value? ");
   Color c1;
   Color c2;
   c1.setFromHSV(fHue, fSaturation, fValue);
