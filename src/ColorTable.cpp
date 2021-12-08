@@ -8,11 +8,11 @@ Color::Color() : mRed(0), mGreen(0), mBlue(0) {}
 Color::Color(const int &red, const int &green, const int &blue)
     : mRed(red), mGreen(green), mBlue(blue) {}
 
-double Color::getRed() const { return mRed; }
+int Color::getRed() const { return mRed; }
 
-double Color::getGreen() const { return mGreen; }
+int Color::getGreen() const { return mGreen; }
 
-double Color::getBlue() const { return mBlue; }
+int Color::getBlue() const { return mBlue; }
 
 int Color::getChannel(const int &channel) const {
   if (channel == 0) {
@@ -63,7 +63,14 @@ bool Color::operator==(const Color &rhs) const {
 }
 void Color::setFromHSV(const double &hue, const double &saturation,
                        const double &value) {
-  HSV_to_RGB(hue, saturation, value, mRed, mGreen, mBlue);
+  double r, g, b;
+  r = getRed();
+  g = getGreen();
+  b = getBlue();
+  HSV_to_RGB(hue, saturation, value, r, g, b);
+  setRed(r);
+  setGreen(g);
+  setBlue(b);
   // Sets the color’s RGB values by converting the inputs using the HSV_to_RGB()
 }
 void Color::getHSV(double &hue, double &saturation, double &value) const {

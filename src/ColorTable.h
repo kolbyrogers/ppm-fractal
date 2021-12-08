@@ -8,9 +8,9 @@ class Color {
 public:
   Color();
   Color(const int &red, const int &green, const int &blue);
-  double getRed() const;
-  double getGreen() const;
-  double getBlue() const;
+  int getRed() const;
+  int getGreen() const;
+  int getBlue() const;
   int getChannel(const int &channel) const;
   void setRed(const int &value);
   void setGreen(const int &value);
@@ -23,9 +23,9 @@ public:
   void getHSV(double &hue, double &saturation, double &value) const;
 
 private:
-  double mRed;
-  double mGreen;
-  double mBlue;
+  int mRed;
+  int mGreen;
+  int mBlue;
 };
 
 // Functions
