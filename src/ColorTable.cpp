@@ -160,10 +160,10 @@ void ColorTable::insertHueSaturationValueGradient(const Color &color1,
         gradientSlope(saturation1, saturation2, position1, position2);
     double value_slope = gradientSlope(value1, value2, position1, position2);
     for (int i = position1; i <= position2; ++i) {
-      double new_hue = gradientValue(hue1, hue2, hue_slope, i);
+      double new_hue = gradientValue(hue1, position1, hue_slope, i);
       double new_saturation =
-          gradientValue(saturation1, saturation2, saturation_slope, i);
-      double new_value = gradientValue(value1, value2, value_slope, i);
+          gradientValue(saturation1, position1, saturation_slope, i);
+      double new_value = gradientValue(value1, position1, value_slope, i);
       Color hsv_color;
       hsv_color.setFromHSV(new_hue, new_saturation, new_value);
       mColors[i] = hsv_color;
