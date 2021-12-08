@@ -97,3 +97,6 @@ void setManhattanNumbers(ActionData &action_data);
 
 // Threaded Grid
 void calculateFractalSingleThread(ActionData &action_data);
+
+// Final Exam
+void setHueSaturationValueGradient(ActionData &action_data);

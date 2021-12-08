@@ -129,9 +129,8 @@ void configureMenu(MenuData &menu_data) {
                       "image using the color table.");
   menu_data.addAction("fractal-plane-size", setFractalPlaneSize,
                       "Set the dimensions of the grid in the complex plane.");
-  menu_data.addAction(
-      "fractal-calculate", calculateFractal,
-      "Calculate the escape values for the fractal.");
+  menu_data.addAction("fractal-calculate", calculateFractal,
+                      "Calculate the escape values for the fractal.");
   menu_data.addAction("julia-parameters", setJuliaParameters,
                       "Set the parameters of the Julia Set function.");
   menu_data.addAction("complex-fractal", setComplexFractal,
@@ -147,6 +146,9 @@ void configureMenu(MenuData &menu_data) {
   menu_data.addAction(
       "fractal-calculate-single-thread", calculateFractalSingleThread,
       "Calculate the escape values for the fractal, single-thread.");
+  menu_data.addAction("set-hsv-gradient", setHueSaturationValueGradient,
+                      "Smoothly set colors for a range of slots in the color "
+                      "table, based on change of hue, saturation, and value.");
 }
 int imageMenu(std::istream &is, std::ostream &os) {
   ActionData action_data(is, os);

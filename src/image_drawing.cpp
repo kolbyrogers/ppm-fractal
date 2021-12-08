@@ -268,3 +268,20 @@ void setJuliaParameters(ActionData &action_data) {
 void calculateFractalSingleThread(ActionData &action_data) {
   action_data.getGrid().NumberGrid::calculateAllNumbers();
 }
+
+// Final Exam
+void setHueSaturationValueGradient(ActionData &action_data) {
+  int p1 = getInteger(action_data, "First position? ");
+  double fHue = getInteger(action_data, "First hue? ");
+  double fSaturation = getInteger(action_data, "First saturation? ");
+  double fValue = getInteger(action_data, "First value? ");
+  int p2 = getInteger(action_data, "Second position? ");
+  double sHue = getInteger(action_data, "Second hue? ");
+  double sSaturation = getInteger(action_data, "Second saturation? ");
+  double sValue = getInteger(action_data, "Second value? ");
+  Color c1;
+  Color c2;
+  c1.setFromHSV(fHue, fSaturation, fValue);
+  c2.setFromHSV(sHue, sSaturation, sValue);
+  action_data.getTable().insertHueSaturationValueGradient(c1, c2, p1, p2);
+}
