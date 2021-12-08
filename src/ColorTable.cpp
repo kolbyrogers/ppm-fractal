@@ -74,7 +74,11 @@ void Color::setFromHSV(const double &hue, const double &saturation,
   // Sets the color’s RGB values by converting the inputs using the HSV_to_RGB()
 }
 void Color::getHSV(double &hue, double &saturation, double &value) const {
-  RGB_to_HSV(mRed, mGreen, mBlue, hue, saturation, value);
+  double r, g, b;
+  r = getRed();
+  g = getGreen();
+  b = getBlue();
+  RGB_to_HSV(r, g, b, hue, saturation, value);
   // Sets the non-const reference parameters to the HSV values obtained by
   // converting the color’s RGB values with the RGB_to_HSV() function.
 }
