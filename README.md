@@ -10,7 +10,9 @@
 <br />
 <div align="center">
 
-  <h3 align="center">Sketchulate</h3>
+<img src="images/big-sur-fractal.jpeg" alt="Logo" width="80" height="80">
+
+  <h3 align="center">PPM-Fractal</h3>
 
   <p align="center">
     An awesome CLI and GUI app to visualize fractals!
